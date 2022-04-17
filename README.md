@@ -597,6 +597,12 @@ sudo make install
 * Required for running unit tests. Breaking unit tests is verboten!
 * https://cxxtest.com/ | `apt install cxxtest`
 
+###### OpenJDK 8
+
+```
+sudo apt install openjdk-8-jdk
+```
+
 ### Optional Prerequisites
 
 The following packages are optional. If they are not installed, some
