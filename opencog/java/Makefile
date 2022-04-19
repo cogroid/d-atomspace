@@ -16,6 +16,7 @@ init:
 	cp ${JAVA_SRC_DIR}/tester.sh ${JAVA_BIN_DIR}/../
 	cp ${JAVA_SRC_DIR}/install.sh ${JAVA_BIN_DIR}/../
 	cp ${JAVA_SRC_DIR}/uninstall.sh ${JAVA_BIN_DIR}/../
+	cp ${JAVA_SRC_DIR}/require.sh ${JAVA_BIN_DIR}/../
 	cp -rf ${JAVA_SRC_DIR}/lib/* ${JAVA_BIN_DIR}/
 
 copy_so:
@@ -120,3 +121,4 @@ clean:
 	rm -f ${JAVA_BIN_DIR}/../tester.sh
 	rm -f ${JAVA_BIN_DIR}/../install.sh
 	rm -f ${JAVA_BIN_DIR}/../uninstall.sh
+	rm -f ${JAVA_BIN_DIR}/../require.sh

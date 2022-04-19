@@ -4,6 +4,9 @@ Disposable.java
 Value.java
 PseudoValue.java
 tester.sh
+require.sh
+install.sh
+uninstall.sh
 
 [ Working ]
 
