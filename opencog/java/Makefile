@@ -14,6 +14,9 @@ build: init copy_so libdatomspace.so Value.class PseudoValue.class Atom.class__A
 init:
 	mkdir -p ${JAVA_BIN_DIR}
 	cp ${JAVA_SRC_DIR}/tester.sh ${JAVA_BIN_DIR}/../
+	cp ${JAVA_SRC_DIR}/install.sh ${JAVA_BIN_DIR}/../
+	cp ${JAVA_SRC_DIR}/uninstall.sh ${JAVA_BIN_DIR}/../
+	cp -rf ${JAVA_SRC_DIR}/lib/* ${JAVA_BIN_DIR}/
 
 copy_so:
 	cp ${JAVA_ROOT_BIN_DIR}/opencog/atomspace/libatomspace.so ${JAVA_BIN_DIR}
@@ -92,6 +95,11 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	${JAVA_ROOT_BIN_DIR}/opencog/persist/tlb/libtlb.so \
 	${JAVA_ROOT_BIN_DIR}/opencog/query/libquery-engine.so \
 
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Atom.o
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_PseudoValue.o
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o
+
 Value.class: ${JAVA_SRC_DIR}/Value.java
 	${JAVAC} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Value.java ${JAVA_SRC_DIR}/Disposable.java
 
@@ -110,3 +118,5 @@ run:
 clean:
 	rm -rf ${JAVA_BIN_DIR}
 	rm -f ${JAVA_BIN_DIR}/../tester.sh
+	rm -f ${JAVA_BIN_DIR}/../install.sh
+	rm -f ${JAVA_BIN_DIR}/../uninstall.sh
