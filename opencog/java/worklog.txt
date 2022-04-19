@@ -1,0 +1,14 @@
+[ Completed ]
+
+Disposable.java
+Value.java
+PseudoValue.java
+tester.sh
+
+[ Working ]
+
+Atom.java
+AtomSpace.java
+Types.java
+Tester.java
+Makefile
