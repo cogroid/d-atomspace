@@ -590,7 +590,7 @@ sudo make install
 ###### guile
 * Embedded scheme REPL (version 2.2.2 or newer required, 3.0 strongly preferred.)
 * https://www.gnu.org/software/guile/guile.html
-* For Debian/Ubuntu,  `apt install guile-3.0-dev`
+* For Debian/Ubuntu,  `apt install guile-2.2-dev`
 
 ###### cxxtest
 * Unit test framework
