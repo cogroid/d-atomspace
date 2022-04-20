@@ -603,6 +603,15 @@ sudo make install
 sudo apt install openjdk-8-jdk
 ```
 
+###### GLIBC >= 2.27
+
+```
+ldd --version
+```
+
+* Ubuntu 18.04
+
+
 ### Optional Prerequisites
 
 The following packages are optional. If they are not installed, some
