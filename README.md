@@ -603,7 +603,7 @@ sudo make install
 sudo apt install openjdk-8-jdk
 ```
 
-###### GLIBC >= 2.27
+###### GLIBC == 2.27
 
 ```
 ldd --version
