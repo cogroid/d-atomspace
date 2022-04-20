@@ -43,6 +43,77 @@ JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1init
  */
 JNIEXPORT void JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1dispose
   (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	opencog::AtomSpace *asp = new opencog::AtomSpace();
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
 	delete asp;
 }
+
+// Please implement
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_size
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1size
+  (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	return (int)asp->getOutgoingSet().size();
+}
+
+// Please implement
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_item_type
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1type
+  (JNIEnv *env, jobject thisObj, jlong jni_ptr, jint idx) {
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	if (asp->getOutgoingSet()[idx].get()->get_type() == opencog::ATOM_SPACE) {
+		return 1;
+	}
+	return 0;
+}
+
+// Please implement
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_item_pointer
+ * Signature: (JI)J
+ */
+JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1pointer
+  (JNIEnv *env, jobject thisObj, jlong jni_ptr, jint idx) {
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	return (long)asp->getOutgoingSet()[idx].get();
+}
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_to_string
+ * Signature: (JLjava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1string
+  (JNIEnv *env, jobject thisObj, jlong jni_ptr, jstring indent) {
+	const char *cindent = env->GetStringUTFChars(indent, NULL);
+	std::string sindent(cindent);
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	std::string result = asp->to_string(sindent);
+	return env->NewStringUTF(result.c_str());
+}
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_to_short_string
+ * Signature: (JLjava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1short_1string
+  (JNIEnv *env, jobject thisObj, jlong jni_ptr, jstring indent) {
+	const char *cindent = env->GetStringUTFChars(indent, NULL);
+	std::string sindent(cindent);
+	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	std::string result = asp->to_short_string(sindent);
+	return env->NewStringUTF(result.c_str());
+}
+

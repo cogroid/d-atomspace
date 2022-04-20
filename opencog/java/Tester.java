@@ -30,6 +30,8 @@ public class Tester {
 	try {
 		java.util.List<String> libs = new java.util.ArrayList<String>();
 		libs.add("datomspace");
+		libs.add("smob");
+		libs.add("cogutil");
 
 		/*
 		libs.add("atomspace");
@@ -107,6 +109,9 @@ public class Tester {
 	System.out.println("is_link: " + as.is_link());
 	System.out.println("is_type: " + as.is_type(1));
 	System.out.println("hash: " + as.get_hash());
+	System.out.println("to_string_indent: " + as.to_string("indent"));
+	System.out.println("to_short_string_indent: " + as.to_short_string("indent"));
+	as.getOutgoingSet();
 	as.dispose();
 	System.out.println("disposed: " + as.disposed());
     }

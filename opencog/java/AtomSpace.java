@@ -37,7 +37,6 @@ public class AtomSpace extends Atom {
 
 	private native long jni_init();
 
-	// Please implement
 	protected void setAtomSpace(AtomSpace atomspace) {
 		_atomspace = atomspace;
 	}
@@ -54,15 +53,17 @@ public class AtomSpace extends Atom {
 		return false;
 	}
 
-	// Please implement
 	public String to_string(String indent) {
-		return indent + " : [" + get_type() + " ]";
+		return jni_to_string(jni_ptr, indent);
 	}
 
-	// Please implement
+	private native String jni_to_string(long jni_ptr, String indent);
+
 	public String to_short_string(String indent) {
-		return indent + ":" + get_type();
+		return jni_to_short_string(jni_ptr, indent);
 	}
+
+	private native String jni_to_short_string(long jni_ptr, String indent);
 
 	public boolean equals(Value v) {
 		return get_type() == v.get_type();
@@ -85,9 +86,27 @@ public class AtomSpace extends Atom {
 		return 0;
 	}
 
+	// Please implement
+
 	public java.util.List<Atom> getOutgoingSet() {
 		java.util.List<Atom> result = new java.util.ArrayList<Atom>();
+		int size = jni_getOutgoingSet_size(jni_ptr);
+		System.out.println("outgoingSet size: " + size);
+		for (int i = 0; i < size; i++) {
+			int type = jni_getOutgoingSet_item_type(jni_ptr, i);
+			System.out.println("outgoingSet item type [" + i + "]: " + type);
+			if (type == Types.ATOM_SPACE) {
+				long ptr = jni_getOutgoingSet_item_pointer(jni_ptr, i);
+				System.out.println("outgoingSet item pointer [" + i + "]: " + ptr);
+				AtomSpace as = new AtomSpace(ptr);
+				result.add(as);
+			}
+		}
 		return result;
 	}
+
+	private native int jni_getOutgoingSet_size(long jni_ptr);
+	private native int jni_getOutgoingSet_item_type(long jni_ptr, int idx);
+	private native long jni_getOutgoingSet_item_pointer(long jni_ptr, int idx);
 
 }

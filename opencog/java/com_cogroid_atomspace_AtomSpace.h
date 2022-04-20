@@ -17,11 +17,51 @@ JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1init
 
 /*
  * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_to_string
+ * Signature: (JLjava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1string
+  (JNIEnv *, jobject, jlong, jstring);
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_to_short_string
+ * Signature: (JLjava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1short_1string
+  (JNIEnv *, jobject, jlong, jstring);
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
  * Method:    jni_dispose
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1dispose
   (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_size
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1size
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_item_type
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1type
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     com_cogroid_atomspace_AtomSpace
+ * Method:    jni_getOutgoingSet_item_pointer
+ * Signature: (JI)J
+ */
+JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1pointer
+  (JNIEnv *, jobject, jlong, jint);
 
 #ifdef __cplusplus
 }
