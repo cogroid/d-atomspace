@@ -29,9 +29,10 @@ public class Tester {
     static {
 	try {
 		java.util.List<String> libs = new java.util.ArrayList<String>();
+		libs.add("boost_filesystem");
+		libs.add("cogutil");
 		libs.add("datomspace");
 		libs.add("smob");
-		libs.add("cogutil");
 
 		/*
 		libs.add("atomspace");
