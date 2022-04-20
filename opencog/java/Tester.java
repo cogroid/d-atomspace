@@ -26,64 +26,16 @@ package com.cogroid.atomspace;
 
 public class Tester {
 
-    static {
-	try {
-		java.util.List<String> libs = new java.util.ArrayList<String>();
-		libs.add("boost_system");
-		libs.add("boost_filesystem");
-		libs.add("gc");
-		libs.add("guile-2.2");
-		libs.add("cogutil");
-		libs.add("datomspace");
-
-		/*
-		libs.add("atomspace");
-		libs.add("atombase");
-		libs.add("atom_types");
-		libs.add("atomcore");
-		libs.add("execution");
-		libs.add("atomflow");
-		libs.add("foreign");
-		libs.add("grounded");
-		libs.add("join");
-		libs.add("parallel");
-		libs.add("pattern");
-		libs.add("clearbox");
-		libs.add("truthvalue");
-		libs.add("value");
-		libs.add("exec");
-		libs.add("guile-uuid");
-		libs.add("logger");
-		libs.add("randgen");
-		libs.add("type-utils");
-		libs.add("smob");
-		libs.add("persist");
-		libs.add("json");
-		libs.add("load_scm");
-		libs.add("persist-file");
-		libs.add("sexpr");
-		libs.add("storage-types");
-		libs.add("tlb");
-		libs.add("query-engine");
-		*/
-
-		for (int i = 0; i < libs.size(); i++) {
-			String libname = libs.get(i);
-			try {
-				System.loadLibrary(libname);
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-	} catch (Throwable e) {
-	    e.printStackTrace();
-	}
-    }
-
     public static void main(String[] args) {
 	System.out.println("\n---------");
 
 	try {
+		if (args.length == 0) {
+			System.out.println("\nTemporary folder is required!\n");
+			return;
+		}
+		Loader.me().loadFromJar(args[0]);
+
 		testPseudoValue();
 		testAtomSpace();
 	} catch (Throwable e) {

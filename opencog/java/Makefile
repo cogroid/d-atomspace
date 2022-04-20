@@ -9,7 +9,7 @@ JAVA_ROOT_BIN_DIR=../../build
 
 all: clean build
 
-build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class Tester.class
+build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class Tester.class datomspace.jar
 
 init:
 	mkdir -p ${JAVA_BIN_DIR}
@@ -308,11 +308,15 @@ PseudoValue.class: ${JAVA_SRC_DIR}/PseudoValue.java
 Atom.class__AtomSpace.class: ${JAVA_SRC_DIR}/Atom.java ${JAVA_SRC_DIR}/AtomSpace.java ${JAVA_SRC_DIR}/Types.java
 	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Atom.java ${JAVA_SRC_DIR}/AtomSpace.java ${JAVA_SRC_DIR}/Types.java
 
-Tester.class: ${JAVA_SRC_DIR}/Tester.java
-	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Tester.java
+Tester.class: ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
+	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
+
+datomspace.jar:
+	jar cvf ${JAVA_BIN_DIR}/../datomspace.jar -C ${JAVA_BIN_DIR} .
 
 run:
-	${JAVA} -cp ${JAVA_BIN_DIR} -Djava.library.path=${JAVA_BIN_DIR} com.cogroid.atomspace.Tester
+	mkdir -p ${JAVA_BIN_DIR}/../tmp
+	${JAVA} -cp ${JAVA_BIN_DIR}/../datomspace.jar com.cogroid.atomspace.Tester ${JAVA_BIN_DIR}/../tmp
 
 clean:
 	rm -rf ${JAVA_BIN_DIR}
@@ -320,3 +324,4 @@ clean:
 	rm -f ${JAVA_BIN_DIR}/../install.sh
 	rm -f ${JAVA_BIN_DIR}/../uninstall.sh
 	rm -f ${JAVA_BIN_DIR}/../require.sh
+	rm -f ${JAVA_BIN_DIR}/../*
