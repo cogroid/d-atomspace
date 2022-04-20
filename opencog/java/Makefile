@@ -9,7 +9,7 @@ JAVA_ROOT_BIN_DIR=../../build
 
 all: clean build
 
-build: init copy_so libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class Tester.class
+build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class Tester.class
 
 init:
 	mkdir -p ${JAVA_BIN_DIR}
@@ -18,9 +18,6 @@ init:
 	cp ${JAVA_SRC_DIR}/uninstall.sh ${JAVA_BIN_DIR}/../
 	cp ${JAVA_SRC_DIR}/require.sh ${JAVA_BIN_DIR}/../
 	cp -rf ${JAVA_SRC_DIR}/lib/* ${JAVA_BIN_DIR}/
-
-copy_so:
-	cp ${JAVA_ROOT_BIN_DIR}/opencog/guile/libsmob.so ${JAVA_BIN_DIR}
 
 copy_so_all:
 	cp ${JAVA_ROOT_BIN_DIR}/opencog/atomspace/libatomspace.so ${JAVA_BIN_DIR}
@@ -65,7 +62,7 @@ com_cogroid_atomspace_AtomSpace.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_AtomSpa
 	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR}/opencog/atomspace -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_AtomSpace.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o
 
 libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValue.o com_cogroid_atomspace_AtomSpace.o com_cogroid_atomspace_Atom.o
-	${GPP} -shared -fPIC -lpthread -Wall -fstack-protector -Wno-variadic-macros -fopenmp -std=gnu++17 -O3 -g -lguile-3.0 -Wl,--no-as-needed \
+	${GPP} -shared -fPIC -lpthread -Wall -fstack-protector -Wno-variadic-macros -fopenmp -std=gnu++17 -O3 -g -Wl,--no-as-needed \
 	-o ${JAVA_BIN_DIR}/libdatomspace.so \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Atom.o \
@@ -141,8 +138,6 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/grounded/CMakeFiles/grounded.dir/LibraryManager.cc.o \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/grounded/CMakeFiles/grounded.dir/LibraryRunner.cc.o \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/grounded/CMakeFiles/grounded.dir/SCMRunner.cc.o \
-	${JAVA_ROOT_BIN_DIR}/opencog/atoms/grounded/CMakeFiles/grounded.dir/DLPython.cc.o \
-	${JAVA_ROOT_BIN_DIR}/opencog/atoms/grounded/CMakeFiles/grounded.dir/PythonRunner.cc.o \
 \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/join/CMakeFiles/join.dir/JoinLink.cc.o \
 \
@@ -262,7 +257,7 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	${JAVA_ROOT_BIN_DIR}/opencog/query/CMakeFiles/query-engine.dir/TermMatchMixin.cc.o \
 \
 	${JAVA_ROOT_SRC_DIR}/opencog/java/lib/libcogutil.so \
-	${JAVA_ROOT_BIN_DIR}/opencog/guile/libsmob.so \
+	${JAVA_ROOT_SRC_DIR}/opencog/java/lib/libguile-2.2.so \
 
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Atom.o

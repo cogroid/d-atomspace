@@ -29,10 +29,12 @@ public class Tester {
     static {
 	try {
 		java.util.List<String> libs = new java.util.ArrayList<String>();
+		libs.add("boost_system");
 		libs.add("boost_filesystem");
+		libs.add("gc");
+		libs.add("guile-2.2");
 		libs.add("cogutil");
 		libs.add("datomspace");
-		libs.add("smob");
 
 		/*
 		libs.add("atomspace");
