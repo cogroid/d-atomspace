@@ -44,6 +44,9 @@ public class Loader {
 		libs.add("guile-2.2");
 		libs.add("cogutil");
 		libs.add("datomspace");
+
+		libs.add("a");
+
 		return libs;
 	}
 
@@ -83,9 +86,28 @@ public class Loader {
 		return this;
 	}
 
-	public Loader loadFromJar(String tmpFolder) {
-		java.util.List<String> libs = requires();
+	private Loader writeLog(String logFile, String text) {
+		try {
+			java.io.FileOutputStream fos = new java.io.FileOutputStream(new java.io.File(logFile), true);
+			fos.write(("\n" + text + "\n").getBytes("UTF-8"));
+			fos.close();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
 
+	private String stackTrace(Throwable e) {
+		java.io.StringWriter sw = new java.io.StringWriter();
+		java.io.PrintWriter pw = new java.io.PrintWriter(sw);
+		e.printStackTrace(pw);
+		return sw.toString();
+	}
+
+	public Loader loadFromJar(String tmpFolder) {
+		String logFile = new java.io.File(new java.io.File(tmpFolder), "datomspace-load.txt").getAbsolutePath();
+		java.util.List<String> libs = requires();
+		writeLog(logFile, "Loading dAtomSpace's native libraries ...");
 		java.io.File parent = new java.io.File(tmpFolder);
 		for (int i = 0; i < libs.size(); i++) {
 			String libname = libs.get(i);
@@ -93,8 +115,10 @@ public class Loader {
 				copyLibFromJar(libname, tmpFolder);
 				java.io.File f = new java.io.File(parent, "lib" + libname + ".so");
 				System.load(f.getAbsolutePath());
+				writeLog(logFile, "lib" + libname + ".so loaded ...");
 			} catch (Throwable e) {
 				e.printStackTrace();
+				writeLog(logFile, "Failed to load lib" + libname + ".so:\n" + stackTrace(e));
 			}
 		}
 
