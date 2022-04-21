@@ -316,7 +316,7 @@ datomspace.jar:
 
 run:
 	mkdir -p ${JAVA_BIN_DIR}/../tmp
-	${JAVA} -cp ${JAVA_BIN_DIR}/../datomspace.jar com.cogroid.atomspace.Tester ${JAVA_BIN_DIR}/../tmp
+	${JAVA} -cp ${JAVA_BIN_DIR}/../datomspace.jar com.cogroid.atomspace.Tester -j ${JAVA_BIN_DIR}/../tmp
 
 clean:
 	rm -rf ${JAVA_BIN_DIR}

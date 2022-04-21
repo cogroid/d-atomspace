@@ -45,13 +45,32 @@ public class Loader {
 		libs.add("cogutil");
 		libs.add("datomspace");
 
-		libs.add("a");
-
 		return libs;
+	}
+
+	public Loader loadWithLog(String logFolder) {
+		java.util.List<String> libs = requires();
+		String logFile = new java.io.File(new java.io.File(logFolder), "datomspace-load.txt").getAbsolutePath();
+		writeLog(logFile, "Loading dAtomSpace's native libraries ...");
+
+		for (int i = 0; i < libs.size(); i++) {
+			String libname = libs.get(i);
+			try {
+				System.loadLibrary(libname);
+				writeLog(logFile, "lib" + libname + ".so loaded ...");
+			} catch (Throwable e) {
+				e.printStackTrace();
+				writeLog(logFile, "Failed to load lib" + libname + ".so:\n" + stackTrace(e));
+			}
+		}
+
+		return this;
 	}
 
 	public Loader loadFromFolder(String libFolder) {
 		java.util.List<String> libs = requires();
+		String logFile = new java.io.File(new java.io.File(libFolder), "datomspace-load.txt").getAbsolutePath();
+		writeLog(logFile, "Loading dAtomSpace's native libraries ...");
 
 		java.io.File parent = new java.io.File(libFolder);
 		for (int i = 0; i < libs.size(); i++) {
@@ -59,15 +78,17 @@ public class Loader {
 			try {
 				java.io.File f = new java.io.File(parent, "lib" + libname + ".so");
 				System.load(f.getAbsolutePath());
+				writeLog(logFile, "lib" + libname + ".so loaded ...");
 			} catch (Throwable e) {
 				e.printStackTrace();
+				writeLog(logFile, "Failed to load lib" + libname + ".so:\n" + stackTrace(e));
 			}
 		}
 
 		return this;
 	}
 
-	private Loader copyLibFromJar(String libName, String tmpFolder) {
+	public Loader copyLibFromJar(String libName, String tmpFolder) {
 		try {
 			String resourceName = "/lib" + libName + ".so";
 			java.io.InputStream stream = Loader.class.getResourceAsStream(resourceName);
@@ -86,7 +107,7 @@ public class Loader {
 		return this;
 	}
 
-	private Loader writeLog(String logFile, String text) {
+	public Loader writeLog(String logFile, String text) {
 		try {
 			java.io.FileOutputStream fos = new java.io.FileOutputStream(new java.io.File(logFile), true);
 			fos.write(("\n" + text + "\n").getBytes("UTF-8"));
@@ -97,7 +118,7 @@ public class Loader {
 		return this;
 	}
 
-	private String stackTrace(Throwable e) {
+	public String stackTrace(Throwable e) {
 		java.io.StringWriter sw = new java.io.StringWriter();
 		java.io.PrintWriter pw = new java.io.PrintWriter(sw);
 		e.printStackTrace(pw);

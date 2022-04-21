@@ -26,18 +26,41 @@ package com.cogroid.atomspace;
 
 public class Tester {
 
+    private String _logFile;
+
+    public Tester(String logFile) {
+	_logFile = logFile;
+    }
+
+    public void writeLog(String text) {
+	Loader.me().writeLog(_logFile, text);
+	System.out.println("\n" + text);
+    }
+
     public static void main(String[] args) {
 	System.out.println("\n---------");
 
 	try {
-		if (args.length == 0) {
-			System.out.println("\nTemporary folder is required!\n");
+		if (args.length < 2) {
+			System.out.println("\nTester.class <-f|-j|-l> <libFolder|tmpFolder|logFolder> \n");
 			return;
 		}
-		Loader.me().loadFromJar(args[0]);
+		if ("-f".equals(args[0])) {
+			Loader.me().loadFromFolder(args[1]);
+		} else if ("-j".equals(args[0])) {
+			Loader.me().loadFromJar(args[1]);
+		} else if ("-l".equals(args[0])) {
+			Loader.me().loadWithLog(args[1]);
+		} else {
+			System.out.println("\nTester.class <-f|-j|-l> <libFolder|tmpFolder|logFolder> \n");
+			return;
+		}
 
-		testPseudoValue();
-		testAtomSpace();
+		String logFile = args[1] + "/testing.txt";
+
+		Tester tester = new Tester(logFile);
+		tester.testPseudoValue();
+		tester.testAtomSpace();
 	} catch (Throwable e) {
 		e.printStackTrace();
 	}
@@ -45,29 +68,44 @@ public class Tester {
 	System.out.println("\n---------");
     }
 
-    private static void testPseudoValue() {
-	System.out.println("\n===== PseudoValue =====\n");
+    public void testPseudoValue() {
+	String log = "\n===== PseudoValue =====\n";
+	writeLog(log);
 	PseudoValue pv = new PseudoValue(1);
-	System.out.println("is_atom: " + pv.is_atom());
-	System.out.println("is_node: " + pv.is_node());
-	System.out.println("is_link: " + pv.is_link());
-	System.out.println("is_type: " + pv.is_type(1));
+	log = "is_atom: " + pv.is_atom();
+	writeLog(log);
+	log = "is_node: " + pv.is_node();
+	writeLog(log);
+	log = "is_link: " + pv.is_link();
+	writeLog(log);
+	log = "is_type: " + pv.is_type(1);
+	writeLog(log);
 	pv.dispose();
-	System.out.println("disposed: " + pv.disposed());
+	log = "disposed: " + pv.disposed();
+	writeLog(log);
     }
 
-    private static void testAtomSpace() {
-	System.out.println("\n===== AtomSpace =====\n");
-	AtomSpace as = new AtomSpace();
-	System.out.println("is_atom: " + as.is_atom());
-	System.out.println("is_node: " + as.is_node());
-	System.out.println("is_link: " + as.is_link());
-	System.out.println("is_type: " + as.is_type(1));
-	System.out.println("hash: " + as.get_hash());
-	System.out.println("to_string_indent: " + as.to_string("indent"));
-	System.out.println("to_short_string_indent: " + as.to_short_string("indent"));
-	as.getOutgoingSet();
-	as.dispose();
-	System.out.println("disposed: " + as.disposed());
+    public void testAtomSpace() {
+	String log = "\n===== AtomSpace =====\n";
+	writeLog(log);
+	AtomSpace pv = new AtomSpace();
+	log = "is_atom: " + pv.is_atom();
+	writeLog(log);
+	log = "is_node: " + pv.is_node();
+	writeLog(log);
+	log = "is_link: " + pv.is_link();
+	writeLog(log);
+	log = "is_type: " + pv.is_type(1);
+	writeLog(log);
+	log = "hash: " + pv.get_hash();
+	writeLog(log);
+	log = "to_string_indent: " + pv.to_string("indent");
+	writeLog(log);
+	log = "to_short_string_indent: " + pv.to_short_string("indent");
+	writeLog(log);
+	pv.getOutgoingSet();
+	pv.dispose();
+	log = "disposed: " + pv.disposed();
+	writeLog(log);
     }
 }
