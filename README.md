@@ -611,6 +611,13 @@ ldd --version
 
 * Ubuntu 18.04
 
+###### GCC 32 bit
+
+```
+sudo apt install gcc-multilib
+
+sudo apt install g++-multilib
+```
 
 ### Optional Prerequisites
 
