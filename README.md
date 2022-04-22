@@ -597,10 +597,10 @@ sudo make install
 * Required for running unit tests. Breaking unit tests is verboten!
 * https://cxxtest.com/ | `apt install cxxtest`
 
-###### OpenJDK 8
+###### JDK 8 32 bits
 
 ```
-sudo apt install openjdk-8-jdk
+Install JDK 8 32 bits to /home/cogroid/local/jdk8
 ```
 
 ###### GLIBC == 2.27
