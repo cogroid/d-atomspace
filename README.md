@@ -655,6 +655,31 @@ during the build, will be more precise as to which parts will not be built.
 
 ### Building AtomSpace
 
+
+### Prepare for i386 machine
+
+```
+cd ${COGUTIL_32bits_DIR}/make/i386
+make install
+```
+
+```
+cd ${ATOMSPACE_DIR}/make/i386
+make
+```
+
+### Prepare for x64 machine
+
+```
+cd ${COGUTIL_32bits_DIR}/make/i386
+make uninstall
+```
+
+```
+cd ${ATOMSPACE_DIR}/make/x64
+make
+```
+
 Be sure to install the pre-requisites first!
 Perform the following steps at the shell prompt:
 ```
