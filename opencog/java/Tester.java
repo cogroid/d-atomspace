@@ -59,8 +59,7 @@ public class Tester {
 		String logFile = args[1] + "/testing.txt";
 
 		Tester tester = new Tester(logFile);
-		tester.testPseudoValue();
-		tester.testAtomSpace();
+		tester.testAll();
 	} catch (Throwable e) {
 		e.printStackTrace();
 	}
@@ -68,44 +67,61 @@ public class Tester {
 	System.out.println("\n---------");
     }
 
+    public void testAll() {
+	try {
+		testPseudoValue();
+		testAtomSpace();
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
     public void testPseudoValue() {
-	String log = "\n===== PseudoValue =====\n";
-	writeLog(log);
-	PseudoValue pv = new PseudoValue(1);
-	log = "is_atom: " + pv.is_atom();
-	writeLog(log);
-	log = "is_node: " + pv.is_node();
-	writeLog(log);
-	log = "is_link: " + pv.is_link();
-	writeLog(log);
-	log = "is_type: " + pv.is_type(1);
-	writeLog(log);
-	pv.dispose();
-	log = "disposed: " + pv.disposed();
-	writeLog(log);
+	try {
+		String log = "\n===== PseudoValue =====\n";
+		writeLog(log);
+		PseudoValue pv = new PseudoValue(1);
+		log = "is_atom: " + pv.is_atom();
+		writeLog(log);
+		log = "is_node: " + pv.is_node();
+		writeLog(log);
+		log = "is_link: " + pv.is_link();
+		writeLog(log);
+		log = "is_type: " + pv.is_type(1);
+		writeLog(log);
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
     }
 
     public void testAtomSpace() {
-	String log = "\n===== AtomSpace =====\n";
-	writeLog(log);
-	AtomSpace pv = new AtomSpace();
-	log = "is_atom: " + pv.is_atom();
-	writeLog(log);
-	log = "is_node: " + pv.is_node();
-	writeLog(log);
-	log = "is_link: " + pv.is_link();
-	writeLog(log);
-	log = "is_type: " + pv.is_type(1);
-	writeLog(log);
-	log = "hash: " + pv.get_hash();
-	writeLog(log);
-	log = "to_string_indent: " + pv.to_string("indent");
-	writeLog(log);
-	log = "to_short_string_indent: " + pv.to_short_string("indent");
-	writeLog(log);
-	pv.getOutgoingSet();
-	pv.dispose();
-	log = "disposed: " + pv.disposed();
-	writeLog(log);
+	try {
+		String log = "\n===== AtomSpace =====\n";
+		writeLog(log);
+		AtomSpace pv = new AtomSpace();
+		log = "is_atom: " + pv.is_atom();
+		writeLog(log);
+		log = "is_node: " + pv.is_node();
+		writeLog(log);
+		log = "is_link: " + pv.is_link();
+		writeLog(log);
+		log = "is_type: " + pv.is_type(1);
+		writeLog(log);
+		log = "hash: " + pv.get_hash();
+		writeLog(log);
+		log = "to_string_indent: " + pv.to_string("indent");
+		writeLog(log);
+		log = "to_short_string_indent: " + pv.to_short_string("indent");
+		writeLog(log);
+		pv.getOutgoingSet();
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
     }
 }

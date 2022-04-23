@@ -1,7 +1,7 @@
 #!/bin/bash
 
-JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-JAVA=java
+JAVA_HOME=/home/cogroid/local/jdk8
+JAVA=${JAVA_HOME}/bin/java
 JAVA_BIN_DIR=./bin
 
 mkdir -p ${JAVA_BIN_DIR}/../tmp

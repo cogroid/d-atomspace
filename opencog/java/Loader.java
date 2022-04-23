@@ -77,6 +77,9 @@ public class Loader {
 			String libname = libs.get(i);
 			try {
 				java.io.File f = new java.io.File(parent, "lib" + libname + ".so");
+				if (!f.exists()) {
+					f = new java.io.File(parent, "lib" + libname + ".a");
+				}
 				System.load(f.getAbsolutePath());
 				writeLog(logFile, "lib" + libname + ".so loaded ...");
 			} catch (Throwable e) {
@@ -90,12 +93,22 @@ public class Loader {
 
 	public Loader copyLibFromJar(String libName, String tmpFolder) {
 		try {
+			java.io.File tagFile = new java.io.File(new java.io.File(tmpFolder), "lib" + libName + ".so");
 			String resourceName = "/lib" + libName + ".so";
 			java.io.InputStream stream = Loader.class.getResourceAsStream(resourceName);
-			java.io.File tagFile = new java.io.File(new java.io.File(tmpFolder), "lib" + libName + ".so");
-			java.io.OutputStream resStreamOut = new java.io.FileOutputStream(tagFile);
 			int readBytes;
 			byte[] buffer = new byte[4096];
+			try {
+				if ((readBytes = stream.read(buffer, 0, buffer.length)) == 0) {
+					throw new Exception("");
+				}
+				stream = Loader.class.getResourceAsStream(resourceName);
+			} catch (Throwable e) {
+				resourceName = "/lib" + libName + ".a";
+				stream = Loader.class.getResourceAsStream(resourceName);
+				tagFile = new java.io.File(new java.io.File(tmpFolder), "lib" + libName + ".a");
+			}
+			java.io.OutputStream resStreamOut = new java.io.FileOutputStream(tagFile);
 			while ((readBytes = stream.read(buffer, 0, buffer.length)) > 0) {
 				resStreamOut.write(buffer, 0, readBytes);
 			}
@@ -135,6 +148,9 @@ public class Loader {
 			try {
 				copyLibFromJar(libname, tmpFolder);
 				java.io.File f = new java.io.File(parent, "lib" + libname + ".so");
+				if (!f.exists()) {
+					f = new java.io.File(parent, "lib" + libname + ".a");
+				}
 				System.load(f.getAbsolutePath());
 				writeLog(logFile, "lib" + libname + ".so loaded ...");
 			} catch (Throwable e) {
