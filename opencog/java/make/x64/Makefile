@@ -14,7 +14,7 @@ build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace
 
 init:
 	mkdir -p ${JAVA_BIN_DIR}
-	cp ${JAVA_SRC_DIR}/tester.sh ${JAVA_BIN_DIR}/../
+	cp ${JAVA_SRC_DIR}/tester-x64.sh ${JAVA_BIN_DIR}/../tester.sh
 	cp -rf ${JAVA_SRC_DIR}/lib/x64/* ${JAVA_BIN_DIR}/
 
 com_cogroid_atomspace_Value.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Value.cc
@@ -255,4 +255,4 @@ clean:
 	rm -f ${JAVA_BIN_DIR}/../tester.sh
 	rm -f ${JAVA_BIN_DIR}/../datomspace.jar
 	rm -rf ${JAVA_BIN_DIR}/../tmp
-	rm -f ${JAVA_BIN_DIR}/../*
+	rm -rf ${JAVA_BIN_DIR}/../*
