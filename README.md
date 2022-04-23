@@ -583,7 +583,7 @@ sudo make install
 
 ###### cogutil
 * Common OpenCog C++ utilities.
-* https://github.com/cogroid/o-cogutil
+* https://github.com/cogroid/d-cogutil
 * It uses exactly the same build procedure as this package. Be sure
   to `sudo make install` at the end.
 
@@ -694,6 +694,24 @@ Perform the following steps at the shell prompt:
 Libraries will be built into subdirectories within build, mirroring
 the structure of the source directory root.
 
+
+### Build java libraries for i386 machine
+
+```
+cd ${ATOMSPACE_DIR}/opencog/java/make/i386
+make
+
+make run
+```
+
+### Build java libraries for x64 machine
+
+```
+cd ${ATOMSPACE_DIR}/opencog/java/make/x64
+make
+
+make run
+```
 
 ### Unit tests
 
