@@ -245,7 +245,7 @@ Tester.class: ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
 	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
 
 datomspace.jar:
-	jar cvf ${JAVA_BIN_DIR}/../datomspace.jar -C ${JAVA_BIN_DIR} .
+	${JAR} cvf ${JAVA_BIN_DIR}/../datomspace.jar -C ${JAVA_BIN_DIR} .
 
 run:
 	mkdir -p ${JAVA_BIN_DIR}/../tmp
