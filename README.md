@@ -603,6 +603,12 @@ sudo make install
 Install JDK 8 32 bits to /home/cogroid/local/jdk8
 ```
 
+###### OpenJDK 8
+
+```
+sudo apt install openjdk-8-jdk
+```
+
 ###### GLIBC == 2.27
 
 ```
