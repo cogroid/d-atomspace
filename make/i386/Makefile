@@ -1,13 +1,19 @@
-ROOT_DIR=../../
+all:
+	sudo mkdir -p /home/cogroid/local/d-atomspace/i386
+	sudo cp -rf ./cogutil/* /home/cogroid/local/d-atomspace/i386/
+	cp -f ./CMakeLists.txt ../../opencog/
+	sudo mkdir -p /usr/local/lib/opencog
+	sudo cp -f ./cogutil/lib/opencog/libcogutil.so /usr/local/lib/opencog/
+	mkdir -p ../../build
+	cd ../../build; \
+	cmake \
+	-DCMAKE_INSTALL_PREFIX="/home/cogroid/local/d-atomspace/i386" \
+	..; \
+	make -j4
 
-all: src_update lib_copy
-
-src_update:
-	cp -f ${ROOT_DIR}/make/i386/CMakeLists.txt ${ROOT_DIR}/opencog/
-
-lib_copy:
-	sudo mkdir -p /home/cogroid/local/lib/i386
-	sudo cp -rf ${ROOT_DIR}/make/i386/lib/* /home/cogroid/local/lib/i386/
+install:
+	sudo sh -c 'cd ../../build; \
+	make install;'
 
 clean:
-	cp -f ${ROOT_DIR}/make/i386/org/CMakeLists.txt ${ROOT_DIR}/opencog/
+	rm -rf ../../build

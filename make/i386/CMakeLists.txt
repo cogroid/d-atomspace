@@ -4,7 +4,7 @@ INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 
 DECLARE_GUILE_CONFIG_TARGET(SCM_CONFIG "opencog as-config" "ATOMSPACE_TEST")
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32 -march=i386 -L/home/cogroid/local/lib/i386 -I/usr/include/x86_64-linux-gnu")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32 -march=i386 -L/home/cogroid/local/d-atomspace/i386/lib -I/usr/include/x86_64-linux-gnu")
 
 # The build order used here is loosely in terms of 
 # dependencies: the later parts depend on, or may
