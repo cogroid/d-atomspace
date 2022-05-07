@@ -691,7 +691,7 @@ make install
 Built files are at /home/cogroid/local/d-atomspace/i386
 ```
 
-### Build for i386 machine
+### Build for armv7 machine
 
 ```
 sudo apt update
