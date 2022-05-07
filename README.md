@@ -655,30 +655,61 @@ during the build, will be more precise as to which parts will not be built.
 
 ### Building AtomSpace
 
-
-### Prepare for i386 machine
+### Build for x64 machine
 
 ```
-cd ${COGUTIL_32bits_DIR}/make/i386
+sudo apt update
+cd ${ATOMSPACE_DIR}/make/x64
+make > build.log&
+```
+
+```
+sudo apt update
+cd ${ATOMSPACE_DIR}/make/x64
 make install
 ```
 
 ```
+Built files are at /home/cogroid/local/d-atomspace/x64
+```
+
+### Build for i386 machine
+
+```
+sudo apt update
 cd ${ATOMSPACE_DIR}/make/i386
-make
-```
-
-### Prepare for x64 machine
-
-```
-cd ${COGUTIL_32bits_DIR}/make/i386
-make uninstall
+make > build.log&
 ```
 
 ```
-cd ${ATOMSPACE_DIR}/make/x64
-make
+sudo apt update
+cd ${ATOMSPACE_DIR}/make/i386
+make install
 ```
+
+```
+Built files are at /home/cogroid/local/d-atomspace/i386
+```
+
+### Build for i386 machine
+
+```
+sudo apt update
+cd ${ATOMSPACE_DIR}/make/armv7
+make > build.log&
+```
+
+```
+sudo apt update
+cd ${ATOMSPACE_DIR}/make/armv7
+make install
+```
+
+```
+Built files are at /home/cogroid/local/d-atomspace/armv7
+```
+
+### Build for other machine
 
 Be sure to install the pre-requisites first!
 Perform the following steps at the shell prompt:
