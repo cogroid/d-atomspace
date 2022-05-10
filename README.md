@@ -744,6 +744,13 @@ make
 make run
 ```
 
+### Build java libraries for armv7 machine
+
+```
+cd ${ATOMSPACE_DIR}/opencog/java/make/armv7
+make
+```
+
 ### Unit tests
 
 To build and run the unit tests, from the `./build` directory enter
