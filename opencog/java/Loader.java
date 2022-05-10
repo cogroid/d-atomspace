@@ -38,9 +38,17 @@ public class Loader {
 
 	public java.util.List<String> requires() {
 		java.util.List<String> libs = new java.util.ArrayList<String>();
+		libs.add("ltdl");
+		libs.add("fixing");
+		libs.add("ltdl");
+		libs.add("ffi");
+		libs.add("gmp");
+		libs.add("gc");
+		libs.add("c++");
 		libs.add("boost_system");
 		libs.add("boost_filesystem");
-		libs.add("gc");
+		libs.add("boost_thread");
+		libs.add("boost_program_options");
 		libs.add("guile-2.2");
 		libs.add("cogutil");
 		libs.add("datomspace");
