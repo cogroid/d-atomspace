@@ -24,6 +24,7 @@
 
 #include "com_cogroid_atomspace_PseudoValue.h"
 #include <AtomSpace.h>
+#include "SPW.h"
 
 /*
  * Class:     com_cogroid_atomspace_PseudoValue
@@ -32,6 +33,6 @@
  */
 JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_PseudoValue_jni_1init
   (JNIEnv *env, jobject thisObj) {
-	opencog::AtomSpace *asp = new opencog::AtomSpace();
-	return (long)asp;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = new cogroid::SPW<opencog::AtomSpace>();
+	return spw_asp->instance();
 }

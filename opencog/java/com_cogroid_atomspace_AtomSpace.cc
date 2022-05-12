@@ -24,6 +24,7 @@
 
 #include "com_cogroid_atomspace_AtomSpace.h"
 #include "AtomSpace.h"
+#include "SPW.h"
 
 /*
  * Class:     com_cogroid_atomspace_AtomSpace
@@ -32,8 +33,8 @@
  */
 JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1init
   (JNIEnv *env, jobject thisObj) {
-	opencog::AtomSpace *asp = new opencog::AtomSpace();
-	return (long)asp;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = new cogroid::SPW<opencog::AtomSpace>();
+	return spw_asp->instance();
 }
 
 /*
@@ -43,8 +44,7 @@ JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1init
  */
 JNIEXPORT void JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1dispose
   (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
-	delete asp;
+	cogroid::SPW<opencog::AtomSpace>::dispose(jni_ptr);
 }
 
 // Please implement
@@ -56,7 +56,8 @@ JNIEXPORT void JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1dispose
  */
 JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1size
   (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = cogroid::SPW<opencog::AtomSpace>::get(jni_ptr);
+	opencog::AtomSpace *asp = spw_asp->get();
 	return (int)asp->getOutgoingSet().size();
 }
 
@@ -69,7 +70,8 @@ JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_
  */
 JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1type
   (JNIEnv *env, jobject thisObj, jlong jni_ptr, jint idx) {
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = cogroid::SPW<opencog::AtomSpace>::get(jni_ptr);
+	opencog::AtomSpace *asp = spw_asp->get();
 	if (asp->getOutgoingSet()[idx].get()->get_type() == opencog::ATOM_SPACE) {
 		return 1;
 	}
@@ -85,7 +87,8 @@ JNIEXPORT jint JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_
  */
 JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1getOutgoingSet_1item_1pointer
   (JNIEnv *env, jobject thisObj, jlong jni_ptr, jint idx) {
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = cogroid::SPW<opencog::AtomSpace>::get(jni_ptr);
+	opencog::AtomSpace *asp = spw_asp->get();
 	return (long)asp->getOutgoingSet()[idx].get();
 }
 
@@ -98,7 +101,8 @@ JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1string
   (JNIEnv *env, jobject thisObj, jlong jni_ptr, jstring indent) {
 	const char *cindent = env->GetStringUTFChars(indent, NULL);
 	std::string sindent(cindent);
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = cogroid::SPW<opencog::AtomSpace>::get(jni_ptr);
+	opencog::AtomSpace *asp = spw_asp->get();
 	std::string result = asp->to_string(sindent);
 	return env->NewStringUTF(result.c_str());
 }
@@ -112,7 +116,8 @@ JNIEXPORT jstring JNICALL Java_com_cogroid_atomspace_AtomSpace_jni_1to_1short_1s
   (JNIEnv *env, jobject thisObj, jlong jni_ptr, jstring indent) {
 	const char *cindent = env->GetStringUTFChars(indent, NULL);
 	std::string sindent(cindent);
-	opencog::AtomSpace *asp = (opencog::AtomSpace *)jni_ptr;
+	cogroid::SPW<opencog::AtomSpace> *spw_asp = cogroid::SPW<opencog::AtomSpace>::get(jni_ptr);
+	opencog::AtomSpace *asp = spw_asp->get();
 	std::string result = asp->to_short_string(sindent);
 	return env->NewStringUTF(result.c_str());
 }

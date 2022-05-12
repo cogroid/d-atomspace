@@ -1,5 +1,5 @@
 /*
- * opencog/java/com_cogroid_atomspace_Value.cc
+ * opencog/java/GenericEval.java
  *
  * Copyright (C) 2022 Dinh Thoai Tran
  * All Rights Reserved
@@ -22,30 +22,43 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "com_cogroid_atomspace_Value.h"
-#include <Value.h>
-#include <types.h>
-#include "SPW.h"
+package com.cogroid.atomspace;
 
-/*
- * Class:     com_cogroid_atomspace_Value
- * Method:    jni_is_type
- * Signature: (JI)Z
- */
-JNIEXPORT jboolean JNICALL Java_com_cogroid_atomspace_Value_jni_1is_1type
-  (JNIEnv *env, jobject thisObj, jlong jni_ptr, jint type) {
-	opencog::Type v_type = (opencog::Type)type;
-	cogroid::SPW<opencog::Value> *spw_v = cogroid::SPW<opencog::Value>::get(jni_ptr);
-	opencog::Value *v_value = spw_v->get();
-	return v_value->is_type(v_type);
-}
+public abstract class GenericEval {
+	public long jni_ptr = 0;
 
-/*
- * Class:     com_cogroid_atomspace_Value
- * Method:    jni_dispose
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_com_cogroid_atomspace_Value_jni_1dispose
-  (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	cogroid::SPW<opencog::Value>::dispose(jni_ptr);
+	protected String _input_line = "";
+	protected String _error_string = "";
+	protected boolean _pending_input = false;
+	protected boolean _caught_error = false;
+
+	public GenericEval() {
+	}
+
+	public boolean input_pending() {
+		return _pending_input;
+	}
+
+	public void clear_pending() {
+		_input_line = "";
+		_error_string = "";
+		_pending_input = false;
+		_caught_error = false;
+	}
+
+	public boolean eval_error() {
+		return _caught_error;
+	}
+
+	public String get_error_string() {
+		return _error_string;
+	}
+
+	public abstract void begin_eval();
+
+	public abstract void eval_expr(String text);
+
+	public abstract String poll_result();
+
+	public abstract void interrupt();
 }

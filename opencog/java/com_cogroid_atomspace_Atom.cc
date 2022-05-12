@@ -24,6 +24,7 @@
 
 #include "com_cogroid_atomspace_Atom.h"
 #include <Atom.h>
+#include "SPW.h"
 
 /*
  * Class:     com_cogroid_atomspace_Atom
@@ -32,7 +33,8 @@
  */
 JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_Atom_jni_1get_1hash
   (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	opencog::Atom *a = (opencog::Atom *)jni_ptr;
+	cogroid::SPW<opencog::Atom> *spw_a = cogroid::SPW<opencog::Atom>::get(jni_ptr);
+	opencog::Atom *a = spw_a->get();
 	return (long)a->get_hash();
 }
 
@@ -43,6 +45,5 @@ JNIEXPORT jlong JNICALL Java_com_cogroid_atomspace_Atom_jni_1get_1hash
  */
 JNIEXPORT void JNICALL Java_com_cogroid_atomspace_Atom_jni_1dispose
   (JNIEnv *env, jobject thisObj, jlong jni_ptr) {
-	opencog::Atom *a = (opencog::Atom *)jni_ptr;
-	delete a;
+	cogroid::SPW<opencog::Atom>::dispose(jni_ptr);
 }

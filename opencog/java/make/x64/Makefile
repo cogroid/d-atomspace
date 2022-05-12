@@ -10,12 +10,14 @@ JAVA_ROOT_BIN_DIR=../../../../build
 
 all: clean build
 
-build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class Tester.class datomspace.jar
+build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class GenericEval.class SchemeEval.class Tester.class datomspace.jar
 
 init:
 	mkdir -p ${JAVA_BIN_DIR}
 	cp ${JAVA_SRC_DIR}/tester-x64.sh ${JAVA_BIN_DIR}/../tester.sh
 	cp -rf ${JAVA_SRC_DIR}/lib/x64/* ${JAVA_BIN_DIR}/
+	mkdir -p ${JAVA_BIN_DIR}/tests
+	cp -rf ${JAVA_SRC_DIR}/tests/* ${JAVA_BIN_DIR}/tests/
 
 com_cogroid_atomspace_Value.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Value.cc
 	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR}/opencog/atoms/value -I${JAVA_ROOT_SRC_DIR}/opencog/atoms/atom_types -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_Value.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o
@@ -29,13 +31,17 @@ com_cogroid_atomspace_PseudoValue.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Pseud
 com_cogroid_atomspace_AtomSpace.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_AtomSpace.cc
 	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR}/opencog/atomspace -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_AtomSpace.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o
 
-libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValue.o com_cogroid_atomspace_AtomSpace.o com_cogroid_atomspace_Atom.o
+com_cogroid_atomspace_SchemeEval.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_SchemeEval.cc
+	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR} -I/home/cogroid/local/guile/x64/include/guile/2.2 -DHAVE_GUILE=1 -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_SchemeEval.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_SchemeEval.o
+
+libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValue.o com_cogroid_atomspace_AtomSpace.o com_cogroid_atomspace_Atom.o com_cogroid_atomspace_SchemeEval.o
 	${GPP} -shared -fPIC -lpthread -Wall -fstack-protector -Wno-variadic-macros -fopenmp -std=gnu++17 -O3 -g -Wl,--no-as-needed \
 	-o ${JAVA_BIN_DIR}/libdatomspace.so \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Atom.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_PseudoValue.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o \
+	${JAVA_BIN_DIR}/com_cogroid_atomspace_SchemeEval.o \
 \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/atom_types/CMakeFiles/atom_types.dir/atom_types_init.cc.o \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/atom_types/CMakeFiles/atom_types.dir/NameServer.cc.o \
@@ -231,6 +237,7 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Atom.o
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_PseudoValue.o
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_SchemeEval.o
 
 Value.class: ${JAVA_SRC_DIR}/Value.java
 	${JAVAC} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Value.java ${JAVA_SRC_DIR}/Disposable.java
@@ -243,6 +250,12 @@ Atom.class__AtomSpace.class: ${JAVA_SRC_DIR}/Atom.java ${JAVA_SRC_DIR}/AtomSpace
 
 Tester.class: ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
 	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Tester.java ${JAVA_SRC_DIR}/Loader.java
+
+GenericEval.class: ${JAVA_SRC_DIR}/GenericEval.java
+	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/GenericEval.java
+
+SchemeEval.class: ${JAVA_SRC_DIR}/SchemeEval.java
+	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/SchemeEval.java
 
 datomspace.jar:
 	${JAR} cvf ${JAVA_BIN_DIR}/../datomspace.jar -C ${JAVA_BIN_DIR} .

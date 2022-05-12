@@ -67,10 +67,45 @@ public class Tester {
 	System.out.println("\n---------");
     }
 
+    public java.util.List<String> scmFiles() {
+	java.util.List<String> files = new java.util.ArrayList<String>();
+	files.add("/tests/scm/ConceptNode.scm");
+	return files;
+    }
+
+    public void extractScmFiles() {
+	String tmpFolder = new java.io.File(_logFile).getParentFile().getAbsolutePath();
+	java.util.List<String> files = scmFiles();
+	for (int i = 0; i < files.size(); i++) {
+		String fn = files.get(i);
+		com.cogroid.atomspace.Loader.me().copyFileFromJar(fn, tmpFolder);
+	}
+    }
+
+    public String readTextFile(String filename, String tmpFolder) {
+	try {
+		String textFile = new java.io.File(new java.io.File(tmpFolder), filename.substring(1)).getAbsolutePath();
+		java.io.FileInputStream fis = new java.io.FileInputStream(textFile);
+		java.lang.StringBuilder sb = new java.lang.StringBuilder();
+		java.io.BufferedReader br = new java.io.BufferedReader(new java.io.InputStreamReader(fis));
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			sb.append(line).append("\n");
+		}
+		fis.close();
+		br.close();
+		return sb.toString();
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+	return "";
+    }
+
     public void testAll() {
 	try {
 		testPseudoValue();
 		testAtomSpace();
+		testSchemeEval();
 	} catch (Throwable e) {
 		writeLog(Loader.me().stackTrace(e));
 	}
@@ -120,6 +155,43 @@ public class Tester {
 		pv.dispose();
 		log = "disposed: " + pv.disposed();
 		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
+    public void testSchemeEval() {
+	try {
+		String log = "\n===== SchemeEval =====\n";
+		writeLog(log);
+		AtomSpace pv = new AtomSpace();
+		SchemeEval se = new SchemeEval(pv);
+		String tmpFolder = new java.io.File(_logFile).getParentFile().getAbsolutePath();
+		extractScmFiles();
+		java.util.List<String> files = scmFiles();
+		try {
+			SchemeEval.init_scheme();
+		} catch (Throwable e) {
+			writeLog(Loader.me().stackTrace(e));
+		}
+		for (int i = 0; i < files.size(); i++) {
+			String fn = files.get(i);
+			String text = readTextFile(fn, tmpFolder);
+			try {
+				writeLog("----- Eval: " + fn + " -----");
+				String rs = "";
+				se.begin_eval();
+				writeLog("begin_eval();");
+				se.eval_expr(text);
+				writeLog("eval_expr();");
+				rs = se.poll_result();
+				writeLog("poll_result();");
+				//String rs = se.eval(text);
+				writeLog(rs);
+			} catch (Throwable e) {
+				writeLog(Loader.me().stackTrace(e));
+			}
+		}
 	} catch (Throwable e) {
 		writeLog(Loader.me().stackTrace(e));
 	}

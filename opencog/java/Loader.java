@@ -99,6 +99,26 @@ public class Loader {
 		return this;
 	}
 
+	public Loader copyFileFromJar(String filename, String tmpFolder) {
+		try {
+			java.io.File tagFile = new java.io.File(new java.io.File(tmpFolder), filename.substring(1));
+			tagFile.getParentFile().mkdirs();
+			String resourceName = filename;
+			java.io.InputStream stream = Loader.class.getResourceAsStream(resourceName);
+			int readBytes;
+			byte[] buffer = new byte[4096];
+			java.io.OutputStream resStreamOut = new java.io.FileOutputStream(tagFile);
+			while ((readBytes = stream.read(buffer, 0, buffer.length)) > 0) {
+				resStreamOut.write(buffer, 0, readBytes);
+			}
+			stream.close();
+			resStreamOut.close();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
+
 	public Loader copyLibFromJar(String libName, String tmpFolder) {
 		try {
 			java.io.File tagFile = new java.io.File(new java.io.File(tmpFolder), "lib" + libName + ".so");

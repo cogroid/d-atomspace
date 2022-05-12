@@ -4,9 +4,8 @@ Disposable.java
 Value.java
 PseudoValue.java
 tester.sh
-require.sh
-install.sh
-uninstall.sh
+tester-x64.sh
+GenericEval.java
 
 [ Working ]
 
@@ -16,3 +15,19 @@ Types.java
 Tester.java
 Makefile
 Loader.java
+SchemeEval.java
+
+[ History ]
+
+1. Value.java
+2. PseudoValue.java
+3. Atom.java
+4. AtomSpace.java
+5. Types.java
+6. Tester.java
+7. Makefile
+8. Loader.java
+9. tester.sh
+10. tester-x64.sh
+11. GenericEval.java
+12. SchemeEval.java

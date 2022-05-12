@@ -1,0 +1,2 @@
+(ConceptNode "world")
+(ConceptNode "dream")
