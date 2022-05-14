@@ -20,6 +20,7 @@ init:
 	cp -rf ${JAVA_SRC_DIR}/lib/armv7/* ${JAVA_BIN_DIR}/
 	mkdir -p ${JAVA_BIN_DIR}/tests
 	cp -rf ${JAVA_SRC_DIR}/tests/* ${JAVA_BIN_DIR}/tests/
+	cp -f ${JAVA_SRC_DIR}/data/armv7/guile.zip ${JAVA_BIN_DIR}/../
 
 com_cogroid_atomspace_Value.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Value.cc
 	${GPP} ${ANDROI_FLAGS} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR}/opencog/atoms/value -I${JAVA_ROOT_SRC_DIR}/opencog/atoms/atom_types -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_Value.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o

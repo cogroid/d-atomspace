@@ -27,9 +27,15 @@ package com.cogroid.atomspace;
 public class Tester {
 
     private String _logFile;
+    private String _testsFolder = null;
 
     public Tester(String logFile) {
 	_logFile = logFile;
+    }
+
+    public Tester testsFolder(String folder) {
+	_testsFolder = folder;
+	return this;
     }
 
     public void writeLog(String text) {
@@ -74,6 +80,7 @@ public class Tester {
     }
 
     public void extractScmFiles() {
+	if (_testsFolder != null) return;
 	String tmpFolder = new java.io.File(_logFile).getParentFile().getAbsolutePath();
 	java.util.List<String> files = scmFiles();
 	for (int i = 0; i < files.size(); i++) {

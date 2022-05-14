@@ -49,6 +49,8 @@ public class Loader {
 		libs.add("boost_filesystem");
 		libs.add("boost_thread");
 		libs.add("boost_program_options");
+		libs.add("charset");
+		libs.add("iconv");
 		libs.add("guile-2.2");
 		libs.add("cogutil");
 		libs.add("datomspace");
