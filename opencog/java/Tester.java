@@ -171,16 +171,16 @@ public class Tester {
 	try {
 		String log = "\n===== SchemeEval =====\n";
 		writeLog(log);
-		AtomSpace pv = new AtomSpace();
-		SchemeEval se = new SchemeEval(pv);
-		String tmpFolder = new java.io.File(_logFile).getParentFile().getAbsolutePath();
-		extractScmFiles();
-		java.util.List<String> files = scmFiles();
 		try {
 			SchemeEval.init_scheme();
 		} catch (Throwable e) {
 			writeLog(Loader.me().stackTrace(e));
 		}
+		AtomSpace pv = new AtomSpace();
+		SchemeEval se = new SchemeEval(pv);
+		String tmpFolder = new java.io.File(_logFile).getParentFile().getAbsolutePath();
+		extractScmFiles();
+		java.util.List<String> files = scmFiles();
 		for (int i = 0; i < files.size(); i++) {
 			String fn = files.get(i);
 			String text = readTextFile(fn, tmpFolder);
