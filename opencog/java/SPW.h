@@ -27,6 +27,10 @@ public:
 		return reinterpret_cast<long>(this);
 	}
 
+	std::shared_ptr<T> object() {
+		return _object;
+	}
+
 	T *get() {
 		return _object.get();
 	}

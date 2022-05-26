@@ -25,12 +25,20 @@
 package com.cogroid.atomspace;
 
 public abstract class Value implements Disposable {
-	public long jni_ptr = 0;
+	protected long _jniPtr = 0;
 	protected int _type = 0;
 	protected boolean _disposed;
 
 	public Value(int type) {
 		_type = type;
+	}
+
+	public long jniPtr() {
+		return _jniPtr;
+	}
+
+	protected void jniPtr(long value) {
+		_jniPtr = value;
 	}
 
 	public boolean disposed() {
@@ -42,46 +50,46 @@ public abstract class Value implements Disposable {
 		return this;
 	}
 
-	public int get_type() {
+	public int getType() {
 		return _type;
 	}
 
-	public abstract boolean is_atom();
-	public abstract boolean is_node();
-	public abstract boolean is_link();
+	public abstract boolean isAtom();
+	public abstract boolean isNode();
+	public abstract boolean isLink();
 
-	public boolean is_type(int type) {
-		return is_type(type, true);
+	public boolean isType(int type) {
+		return isType(type, true);
 	}
 
-	public boolean is_type(int type, boolean subclass) {
+	public boolean isType(int type, boolean subclass) {
 		if (!subclass) {
-			return get_type() == type;
+			return getType() == type;
 		}
-		return jni_is_type(jni_ptr, type);
+		return jni_is_type(jniPtr(), type);
 	}
 
 	private native boolean jni_is_type(long jni_ptr, int type);
 
-	public abstract String to_string(String indent);
-	public abstract String to_short_string(String indent);
+	public abstract String toString(String indent);
+	public abstract String toShortString(String indent);
 
-	public String to_string() {
-		return to_string("");
+	public String toString() {
+		return toString("");
 	}
 
-	public String to_short_string() {
-		return to_short_string("");
+	public String toShortString() {
+		return toShortString("");
 	}
 
 	public abstract boolean equals(Value v);
 
-	public boolean not_equals(Value v) {
+	public boolean notEquals(Value v) {
 		return !equals(v);
 	}
 
 	public void dispose() {
-		jni_dispose(jni_ptr);
+		jni_dispose(jniPtr());
 		disposed(true);
 	}
 

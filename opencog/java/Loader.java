@@ -26,6 +26,7 @@ package com.cogroid.atomspace;
 
 public class Loader {
 	private static Loader __me;
+	private String _machine = "armv7";
 
 	public static Loader me() {
 		if (__me == null) {
@@ -36,25 +37,65 @@ public class Loader {
 
 	public Loader() { }
 
+	public String machine() {
+		return _machine;
+	}
+
+	public Loader machine(String value) {
+		_machine = value;
+		return this;
+	}
+
+	public boolean is_armv7() {
+		return "armv7".equals(_machine);
+	}
+
+	public boolean is_x64() {
+		return "x64".equals(_machine);
+	}
+
+	public boolean is_i386() {
+		return "i386".equals(_machine);
+	}
+
 	public java.util.List<String> requires() {
 		java.util.List<String> libs = new java.util.ArrayList<String>();
-		libs.add("ltdl");
-		libs.add("fixing");
-		libs.add("ltdl");
-		libs.add("ffi");
-		libs.add("gmp");
-		libs.add("gc");
-		libs.add("c++");
-		libs.add("boost_system");
-		libs.add("boost_filesystem");
-		libs.add("boost_thread");
-		libs.add("boost_program_options");
-		libs.add("charset");
-		libs.add("iconv");
-		libs.add("guile-2.2");
-		libs.add("cogutil");
-		libs.add("datomspace");
-
+		if (is_armv7()) {
+			libs.add("fixing");
+			libs.add("ltdl");
+			libs.add("ffi");
+			libs.add("gmp");
+			libs.add("gc");
+			libs.add("c++");
+			libs.add("boost_system");
+			libs.add("boost_filesystem");
+			libs.add("boost_thread");
+			libs.add("boost_program_options");
+			libs.add("charset");
+			libs.add("iconv");
+			libs.add("guile-2.2");
+			libs.add("cogutil");
+			libs.add("datomspace");
+		}
+		if (is_x64()) {
+			libs.add("gc");
+			libs.add("boost_system");
+			libs.add("boost_filesystem");
+			libs.add("guile-2.2");
+			libs.add("cogutil");
+			libs.add("datomspace");
+		}
+		if (is_i386()) {
+			libs.add("ffi");
+			libs.add("gc");
+			libs.add("boost_system");
+			libs.add("boost_filesystem");
+			libs.add("boost_thread");
+			libs.add("boost_program_options");
+			libs.add("guile-2.2");
+			libs.add("cogutil");
+			libs.add("datomspace");
+		}
 		return libs;
 	}
 

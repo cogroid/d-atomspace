@@ -36,23 +36,21 @@ public abstract class Atom extends Value {
 		return _atomspace;
 	}
 
-	public long get_hash() {
-		return jni_get_hash(jni_ptr);
+	public long getHash() {
+		return jni_get_hash(jniPtr());
 	}
 
 	private native long jni_get_hash(long jni_ptr);
 
-	public boolean is_atom() {
+	public boolean isAtom() {
 		return true;
 	}
 
-	// public ContentHash get_hash();
-
-	public abstract String get_name();
-	public abstract int get_arity();
+	public abstract String getName();
+	public abstract int getArity();
 
 	public void dispose() {
-		jni_dispose(jni_ptr);
+		jni_dispose(jniPtr());
 		disposed(true);
 	}
 

@@ -27,32 +27,32 @@ package com.cogroid.atomspace;
 public class PseudoValue extends Value {
 	public PseudoValue(int type) {
 		super(type);
-		jni_ptr = jni_init();
+		jniPtr(jni_init());
 	}
 
 	private native long jni_init();
 
-	public boolean is_atom() {
-		return get_type() == 1;
+	public boolean isAtom() {
+		return getType() == 1;
 	}
 
-	public boolean is_node() {
-		return get_type() == 2;
+	public boolean isNode() {
+		return getType() == 2;
 	}
 
-	public boolean is_link() {
-		return get_type() == 3;
+	public boolean isLink() {
+		return getType() == 3;
 	}
 
-	public String to_string(String indent) {
-		return indent + " : [" + get_type() + " ]";
+	public String toString(String indent) {
+		return indent + " : [" + getType() + " ]";
 	}
 
-	public String to_short_string(String indent) {
-		return indent + ":" + get_type();
+	public String toShortString(String indent) {
+		return indent + ":" + getType();
 	}
 
 	public boolean equals(Value v) {
-		return get_type() == v.get_type();
+		return getType() == v.getType();
 	}
 }

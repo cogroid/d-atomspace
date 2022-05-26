@@ -28,9 +28,19 @@ public class Tester {
 
     private String _logFile;
     private String _testsFolder = null;
+    private boolean _runTestSchemeEval = false;
 
     public Tester(String logFile) {
 	_logFile = logFile;
+    }
+
+    public boolean runTestSchemeEval() {
+	return _runTestSchemeEval;
+    }
+
+    public Tester runTestSchemeEval(boolean value) {
+	_runTestSchemeEval = value;
+	return this;
     }
 
     public Tester testsFolder(String folder) {
@@ -47,22 +57,29 @@ public class Tester {
 	System.out.println("\n---------");
 
 	try {
-		if (args.length < 2) {
-			System.out.println("\nTester.class <-f|-j|-l> <libFolder|tmpFolder|logFolder> \n");
+		if (args.length < 3) {
+			System.out.println("\nTester.class <-f|-j|-l> <-x64|-i386|-armv7> <libFolder|tmpFolder|logFolder> \n");
 			return;
 		}
+		if ("-x64".equals(args[1])) {
+			Loader.me().machine("x64");
+		} else if ("-i386".equals(args[1])) {
+			Loader.me().machine("i386");
+		} else if ("-armv7".equals(args[1])) {
+			Loader.me().machine("armv7");
+		}
 		if ("-f".equals(args[0])) {
-			Loader.me().loadFromFolder(args[1]);
+			Loader.me().loadFromFolder(args[2]);
 		} else if ("-j".equals(args[0])) {
-			Loader.me().loadFromJar(args[1]);
+			Loader.me().loadFromJar(args[2]);
 		} else if ("-l".equals(args[0])) {
-			Loader.me().loadWithLog(args[1]);
+			Loader.me().loadWithLog(args[2]);
 		} else {
-			System.out.println("\nTester.class <-f|-j|-l> <libFolder|tmpFolder|logFolder> \n");
+			System.out.println("\nTester.class <-f|-j|-l> <-x64|-i386|-armv7> <libFolder|tmpFolder|logFolder> \n");
 			return;
 		}
 
-		String logFile = args[1] + "/testing.txt";
+		String logFile = args[2] + "/testing.txt";
 
 		Tester tester = new Tester(logFile);
 		tester.testAll();
@@ -112,7 +129,15 @@ public class Tester {
 	try {
 		testPseudoValue();
 		testAtomSpace();
-		testSchemeEval();
+		if (Loader.me().is_armv7()) {
+			if (runTestSchemeEval()) {
+				testSchemeEval();
+			}
+		} else {
+			testSchemeEval();
+		}
+		testNode();
+		testConceptNode();
 	} catch (Throwable e) {
 		writeLog(Loader.me().stackTrace(e));
 	}
@@ -123,13 +148,76 @@ public class Tester {
 		String log = "\n===== PseudoValue =====\n";
 		writeLog(log);
 		PseudoValue pv = new PseudoValue(1);
-		log = "is_atom: " + pv.is_atom();
+		log = "isAtom: " + pv.isAtom();
 		writeLog(log);
-		log = "is_node: " + pv.is_node();
+		log = "isNode: " + pv.isNode();
 		writeLog(log);
-		log = "is_link: " + pv.is_link();
+		log = "isLink: " + pv.isLink();
 		writeLog(log);
-		log = "is_type: " + pv.is_type(1);
+		log = "isType: " + pv.isType(1);
+		writeLog(log);
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
+    public void testNode() {
+	try {
+		String log = "\n===== Node =====\n";
+		writeLog(log);
+		AtomSpace as = new AtomSpace();
+		Node pv = new Node(as, Types.CONCEPT_NODE, "dream");
+		log = "isAtom: " + pv.isAtom();
+		writeLog(log);
+		log = "isNode: " + pv.isNode();
+		writeLog(log);
+		log = "isLink: " + pv.isLink();
+		writeLog(log);
+		log = "getName: " + pv.getName();
+		writeLog(log);
+		log = "getArity: " + pv.getArity();
+		writeLog(log);
+		log = "toString: " + pv.toString();
+		writeLog(log);
+		log = "toShortString: " + pv.toShortString();
+		writeLog(log);
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
+    public void testConceptNode() {
+	try {
+		String log = "\n===== Concept Node =====\n";
+		writeLog(log);
+		AtomSpace as = new AtomSpace();
+		ConceptNode pv = new ConceptNode(as, "dream");
+		ConceptNode pv_b = new ConceptNode(as, "dream");
+		log = "isAtom: " + pv.isAtom();
+		writeLog(log);
+		log = "isNode: " + pv.isNode();
+		writeLog(log);
+		log = "isLink: " + pv.isLink();
+		writeLog(log);
+		log = "getName: " + pv.getName();
+		writeLog(log);
+		log = "getArity: " + pv.getArity();
+		writeLog(log);
+		log = "toString: " + pv.toString();
+		writeLog(log);
+		log = "toShortString: " + pv.toShortString();
+		writeLog(log);
+		log = "equals(true, dream): " + pv.equals(pv);
+		writeLog(log);
+		log = "equals(false, dream): " + pv.equals(pv_b);
+		writeLog(log);
+		log = "equals(false, atomspace): " + pv.equals(as);
 		writeLog(log);
 		pv.dispose();
 		log = "disposed: " + pv.disposed();
@@ -144,19 +232,19 @@ public class Tester {
 		String log = "\n===== AtomSpace =====\n";
 		writeLog(log);
 		AtomSpace pv = new AtomSpace();
-		log = "is_atom: " + pv.is_atom();
+		log = "isAtom: " + pv.isAtom();
 		writeLog(log);
-		log = "is_node: " + pv.is_node();
+		log = "isNode: " + pv.isNode();
 		writeLog(log);
-		log = "is_link: " + pv.is_link();
+		log = "isLink: " + pv.isLink();
 		writeLog(log);
-		log = "is_type: " + pv.is_type(1);
+		log = "isType: " + pv.isType(1);
 		writeLog(log);
-		log = "hash: " + pv.get_hash();
+		log = "getHash: " + pv.getHash();
 		writeLog(log);
-		log = "to_string_indent: " + pv.to_string("indent");
+		log = "toString(indent): " + pv.toString("indent");
 		writeLog(log);
-		log = "to_short_string_indent: " + pv.to_short_string("indent");
+		log = "toShortString(indent): " + pv.toShortString("indent");
 		writeLog(log);
 		pv.getOutgoingSet();
 		pv.dispose();
@@ -172,7 +260,7 @@ public class Tester {
 		String log = "\n===== SchemeEval =====\n";
 		writeLog(log);
 		try {
-			SchemeEval.init_scheme();
+			SchemeEval.initScheme();
 		} catch (Throwable e) {
 			writeLog(Loader.me().stackTrace(e));
 		}
@@ -187,12 +275,12 @@ public class Tester {
 			try {
 				writeLog("----- Eval: " + fn + " -----");
 				String rs = "";
-				se.begin_eval();
-				writeLog("begin_eval();");
-				se.eval_expr(text);
-				writeLog("eval_expr();");
-				rs = se.poll_result();
-				writeLog("poll_result();");
+				se.beginEval();
+				writeLog("beginEval();");
+				se.evalExpr(text);
+				writeLog("evalExpr();");
+				rs = se.pollResult();
+				writeLog("pollResult();");
 				//String rs = se.eval(text);
 				writeLog(rs);
 			} catch (Throwable e) {

@@ -27,36 +27,36 @@ package com.cogroid.atomspace;
 public class SchemeEval extends GenericEval {
 	public SchemeEval() {
 		super();
-		jni_ptr = jni_init(0);
+		jniPtr(jni_init(0));
 	}
 
 	public SchemeEval(long jni_ptr) {
-		this.jni_ptr = jni_ptr;
+		jniPtr(jni_ptr);
 	}
 
 	public SchemeEval(AtomSpace as) {
 		super();
-		jni_ptr = jni_init(as.jni_ptr);
+		jniPtr(jni_init(as.jniPtr()));
 	}
 
 	private native long jni_init(long as_jni_ptr);
 
 	// Call before first use.
-	public static void init_scheme() {
+	public static void initScheme() {
 		jni_init_scheme();
 	}
 
 	private static native void jni_init_scheme();
 
 	// Set per-thread global
-	public static void set_scheme_as(AtomSpace as) {
-		jni_set_scheme_as(as.jni_ptr);
+	public static void setSchemeAs(AtomSpace as) {
+		jni_set_scheme_as(as.jniPtr());
 	}
 
 	private static native void jni_set_scheme_as(long as_jni_ptr);
 
 	// Return per-thread, per-atomspace singleton
-	public static SchemeEval get_evaluator() {
+	public static SchemeEval getEvaluator() {
 		long jni_ptr = jni_get_evaluator();
 		if (jni_ptr == 0) {
 			return null;
@@ -67,8 +67,8 @@ public class SchemeEval extends GenericEval {
 
 	private static native long jni_get_evaluator();
 
-	public static SchemeEval get_evaluator(AtomSpace as) {
-		long jni_ptr = jni_get_evaluator_as(as.jni_ptr);
+	public static SchemeEval getEvaluator(AtomSpace as) {
+		long jni_ptr = jni_get_evaluator_as(as.jniPtr());
 		if (jni_ptr == 0) {
 			return null;
 		} else {
@@ -79,35 +79,35 @@ public class SchemeEval extends GenericEval {
 	private static native long jni_get_evaluator_as(long as_jni_ptr);
 
 	// The async-output interface.
-	public void begin_eval() {
-		jni_begin_eval(jni_ptr);
+	public void beginEval() {
+		jni_begin_eval(jniPtr());
 	}
 
 	private native void jni_begin_eval(long jni_ptr);
 
-	public void eval_expr(String text) {
-		jni_eval_expr(jni_ptr, text);
+	public void evalExpr(String text) {
+		jni_eval_expr(jniPtr(), text);
 	}
 
 	private native void jni_eval_expr(long jni_ptr, String text);
 
-	public String poll_result() {
-		return jni_poll_result(jni_ptr);
+	public String pollResult() {
+		return jni_poll_result(jniPtr());
 	}
 
 	private native String jni_poll_result(long jni_ptr);
 
 	public void interrupt() {
-		jni_interrupt(jni_ptr);
+		jni_interrupt(jniPtr());
 	}
 
 	private native void jni_interrupt(long jni_ptr);
 
 	// The synchronous-output interfaces.
 	public String eval(String expr) { 
-		begin_eval(); 
-		eval_expr(expr); 
-		return poll_result(); 
+		beginEval(); 
+		evalExpr(expr); 
+		return pollResult(); 
 	}
 
 	/*
@@ -134,8 +134,8 @@ public class SchemeEval extends GenericEval {
 	*/
 
 	// Evaluate expression, returning AtomSpace.
-	public AtomSpace eval_as(String text) {
-		long jni_ptr = jni_eval_as(this.jni_ptr, text);
+	public AtomSpace evalAs(String text) {
+		long jni_ptr = jni_eval_as(jniPtr(), text);
 		if (jni_ptr == 0) {
 			return null;
 		} else {
@@ -147,7 +147,7 @@ public class SchemeEval extends GenericEval {
 
 	// Nested invocations
 	public boolean recursing() { 
-		return jni_recursing(jni_ptr); 
+		return jni_recursing(jniPtr()); 
 	}
 
 	private native boolean jni_recursing(long jni_ptr);

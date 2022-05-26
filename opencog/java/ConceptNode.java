@@ -1,5 +1,5 @@
 /*
- * opencog/java/GenericEval.java
+ * opencog/java/ConceptNode.java
  *
  * Copyright (C) 2022 Dinh Thoai Tran
  * All Rights Reserved
@@ -24,49 +24,8 @@
 
 package com.cogroid.atomspace;
 
-public abstract class GenericEval {
-	protected long _jniPtr = 0;
-
-	protected String _inputLine = "";
-	protected String _errorString = "";
-	protected boolean _pendingInput = false;
-	protected boolean _caughtError = false;
-
-	public GenericEval() {
+public class ConceptNode extends Node {
+	public ConceptNode(AtomSpace atomspace, String name) {
+		super(atomspace, Types.CONCEPT_NODE, name);
 	}
-
-	public long jniPtr() {
-		return _jniPtr;
-	}
-
-	protected void jniPtr(long value) {
-		_jniPtr = value;
-	}
-
-	public boolean inputPending() {
-		return _pendingInput;
-	}
-
-	public void clearPending() {
-		_inputLine = "";
-		_errorString = "";
-		_pendingInput = false;
-		_caughtError = false;
-	}
-
-	public boolean evalError() {
-		return _caughtError;
-	}
-
-	public String getErrorString() {
-		return _errorString;
-	}
-
-	public abstract void beginEval();
-
-	public abstract void evalExpr(String text);
-
-	public abstract String pollResult();
-
-	public abstract void interrupt();
 }

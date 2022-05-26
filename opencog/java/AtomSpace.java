@@ -27,12 +27,12 @@ package com.cogroid.atomspace;
 public class AtomSpace extends Atom {
 	public AtomSpace(long jni_ptr) {
 		super(Types.ATOM_SPACE);
-		this.jni_ptr = jni_ptr;
+		jniPtr(jni_ptr);
 	}
 
 	public AtomSpace() {
 		super(Types.ATOM_SPACE);
-		jni_ptr = jni_init();
+		jniPtr(jni_init());
 	}
 
 	private native long jni_init();
@@ -41,48 +41,48 @@ public class AtomSpace extends Atom {
 		_atomspace = atomspace;
 	}
 
-	public boolean is_atom() {
+	public boolean isAtom() {
 		return true;
 	}
 
-	public boolean is_node() {
+	public boolean isNode() {
 		return false;
 	}
 
-	public boolean is_link() {
+	public boolean isLink() {
 		return false;
 	}
 
-	public String to_string(String indent) {
-		return jni_to_string(jni_ptr, indent);
+	public String toString(String indent) {
+		return jni_to_string(jniPtr(), indent);
 	}
 
 	private native String jni_to_string(long jni_ptr, String indent);
 
-	public String to_short_string(String indent) {
-		return jni_to_short_string(jni_ptr, indent);
+	public String toShortString(String indent) {
+		return jni_to_short_string(jniPtr(), indent);
 	}
 
 	private native String jni_to_short_string(long jni_ptr, String indent);
 
 	public boolean equals(Value v) {
-		return get_type() == v.get_type();
+		return getType() == v.getType();
 	}
 
 	public void dispose() {
-		jni_dispose(jni_ptr);
+		jni_dispose(jniPtr());
 		disposed(true);
 	}
 
 	private native void jni_dispose(long jni_ptr);
 
 	// Please implement
-	public String get_name() {
+	public String getName() {
 		return "AtomSpace";
 	}
 
 	// Please implement
-	public int get_arity() {
+	public int getArity() {
 		return 0;
 	}
 
@@ -90,13 +90,13 @@ public class AtomSpace extends Atom {
 
 	public java.util.List<Atom> getOutgoingSet() {
 		java.util.List<Atom> result = new java.util.ArrayList<Atom>();
-		int size = jni_getOutgoingSet_size(jni_ptr);
+		int size = jni_getOutgoingSet_size(jniPtr());
 		System.out.println("outgoingSet size: " + size);
 		for (int i = 0; i < size; i++) {
-			int type = jni_getOutgoingSet_item_type(jni_ptr, i);
+			int type = jni_getOutgoingSet_item_type(jniPtr(), i);
 			System.out.println("outgoingSet item type [" + i + "]: " + type);
 			if (type == Types.ATOM_SPACE) {
-				long ptr = jni_getOutgoingSet_item_pointer(jni_ptr, i);
+				long ptr = jni_getOutgoingSet_item_pointer(jniPtr(), i);
 				System.out.println("outgoingSet item pointer [" + i + "]: " + ptr);
 				AtomSpace as = new AtomSpace(ptr);
 				result.add(as);

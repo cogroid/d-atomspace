@@ -6,6 +6,7 @@ PseudoValue.java
 tester.sh
 tester-x64.sh
 GenericEval.java
+ConceptNode.java
 
 [ Working ]
 
@@ -16,6 +17,7 @@ Tester.java
 Makefile
 Loader.java
 SchemeEval.java
+Node.java
 
 [ History ]
 
@@ -31,3 +33,5 @@ SchemeEval.java
 10. tester-x64.sh
 11. GenericEval.java
 12. SchemeEval.java
+13. Node.java
+14. ConceptNode.java

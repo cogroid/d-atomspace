@@ -26,4 +26,22 @@ package com.cogroid.atomspace;
 
 public class Types {
 	public static int ATOM_SPACE = 1;
+	public static int CONCEPT_NODE = 2;
+
+	public static boolean hasNodeType(int type) {
+		int[] types = {CONCEPT_NODE};
+		for (int i = 0; i < types.length; i++) {
+			if (types[i] == type) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static int refineNodeType(int type) {
+		if (hasNodeType(type)) {
+			return type;
+		}
+		return CONCEPT_NODE;
+	}
 }
