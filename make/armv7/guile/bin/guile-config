@@ -1,9 +1,9 @@
 #!/bin/sh
-PKG_CONFIG_PATH="/home/cogroid/local/guile/armv7/lib/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="/storage/emulated/0/guile/lib/pkgconfig:$PKG_CONFIG_PATH"
 GUILE_AUTO_COMPILE=0
 export PKG_CONFIG_PATH GUILE_AUTO_COMPILE
 
-exec "/home/cogroid/local/guile/armv7/bin/guile" -e main -s $0 "$@"
+exec "/storage/emulated/0/guile/bin/guile" -e main -s $0 "$@"
 !#
 ;;;; guile-config --- utility for linking programs with Guile
 ;;;; Jim Blandy <jim@red-bean.com> --- September 1997

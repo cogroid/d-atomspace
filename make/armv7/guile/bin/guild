@@ -1,6 +1,6 @@
 #!/bin/sh
 # -*- scheme -*-
-exec ${GUILE:-/home/cogroid/local/guile/armv7/bin/guile} $GUILE_FLAGS -e '(@@ (guild) main)' -s "$0" "$@"
+exec ${GUILE:-/storage/emulated/0/guile/bin/guile} $GUILE_FLAGS -e '(@@ (guild) main)' -s "$0" "$@"
 !#
 
 ;;;; guild --- running scripts bundled with Guile

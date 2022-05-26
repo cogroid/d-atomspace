@@ -1,4 +1,4 @@
-Produced by GNU Guile 2.2.3 from `./libguile/guile-procedures.texi'.
+Produced by GNU Guile UNKNOWN from `./libguile/guile-procedures.texi'.
 
 acons
 
@@ -8216,6 +8216,34 @@ interval_microseconds value_seconds value_microseconds
 
      Generally only the superuser can set the process group IDs.
 
+getpw
+
+- Scheme Procedure: getpw [user]
+     Look up an entry in the user database.  USER can be an integer, a
+     string, or omitted, giving the behaviour of `getpwuid', `getpwnam'
+     or `getpwent' respectively.
+
+setpw
+
+- Scheme Procedure: setpw [arg]
+     If called with a true argument, initialize or reset the password
+     data stream.  Otherwise, close the stream.  The `setpwent' and
+     `endpwent' procedures are implemented on top of this.
+
+getgr
+
+- Scheme Procedure: getgr [name]
+     Look up an entry in the group database.  NAME can be an integer, a
+     string, or omitted, giving the behaviour of `getgrgid', `getgrnam'
+     or `getgrent' respectively.
+
+setgr
+
+- Scheme Procedure: setgr [arg]
+     If called with a true argument, initialize or reset the group data
+     stream.  Otherwise, close the stream.  The `setgrent' and
+     `endgrent' procedures are implemented on top of this.
+
 getrlimit
 
 - Scheme Procedure: getrlimit resource
@@ -8429,6 +8457,12 @@ interval_microseconds value_seconds value_microseconds
      Return a string with the name of the serial terminal device
      underlying PORT.
 
+ctermid
+
+- Scheme Procedure: ctermid
+     Return a string containing the file name of the controlling
+     terminal for the current process.
+
 tcgetpgrp
 
 - Scheme Procedure: tcgetpgrp port
@@ -8634,6 +8668,12 @@ interval_microseconds value_seconds value_microseconds
      Flush the operating system disk buffers.  The return value is
      unspecified.
 
+crypt
+
+- Scheme Procedure: crypt key salt
+     Encrypt KEY using SALT as the salt value to the crypt(3) library
+     call.
+
 chroot
 
 - Scheme Procedure: chroot path
@@ -8691,6 +8731,16 @@ interval_microseconds value_seconds value_microseconds
      Install the CPU affinity mask MASK, a bitvector, for the process or
      thread with ID PID.  The return value is unspecified.
 
+getpass
+
+- Scheme Procedure: getpass prompt
+     Display PROMPT to the standard error output and read a password
+     from `/dev/tty'.  If this file is not accessible, it reads from
+     standard input.  The password may be up to 127 characters in
+     length.  Additional characters and the terminating newline
+     character are discarded.  While reading the password, echoing and
+     the generation of signals by special characters is disabled.
+
 flock
 
 - Scheme Procedure: flock file operation
@@ -8746,6 +8796,30 @@ interval_microseconds value_seconds value_microseconds
      conditions may result in errors thrown to the `system-error' or
      `misc_error' keys.
 
+getnet
+
+- Scheme Procedure: getnet [net]
+
+
+
+
+     Look up a network by name or net number in the network database.
+     The NET-NAME argument must be a string, and the NET-NUMBER argument
+     must be an integer.  `getnet' will accept either type of argument,
+     behaving like `getnetent' (see below) if no arguments are given.
+
+getproto
+
+- Scheme Procedure: getproto [protocol]
+
+
+
+
+     Look up a network protocol by name or by number.  `getprotobyname'
+     takes a string argument, and `getprotobynumber' takes an integer
+     argument.  `getproto' will accept either type, behaving like
+     `getprotoent' (see below) if no arguments are supplied.
+
 getserv
 
 - Scheme Procedure: getserv [name [protocol]]
@@ -8762,6 +8836,24 @@ interval_microseconds value_seconds value_microseconds
      The `getserv' procedure will take either a service name or number
      as its first argument; if given no arguments, it behaves like
      `getservent' (see below).
+
+sethost
+
+- Scheme Procedure: sethost [stayopen]
+     If STAYOPEN is omitted, this is equivalent to `endhostent'.
+     Otherwise it is equivalent to `sethostent stayopen'.
+
+setnet
+
+- Scheme Procedure: setnet [stayopen]
+     If STAYOPEN is omitted, this is equivalent to `endnetent'.
+     Otherwise it is equivalent to `setnetent stayopen'.
+
+setproto
+
+- Scheme Procedure: setproto [stayopen]
+     If STAYOPEN is omitted, this is equivalent to `endprotoent'.
+     Otherwise it is equivalent to `setprotoent stayopen'.
 
 setserv
 

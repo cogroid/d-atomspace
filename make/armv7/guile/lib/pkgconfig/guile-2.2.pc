@@ -1,16 +1,16 @@
-prefix=/home/cogroid/local/guile/armv7
-exec_prefix=/home/cogroid/local/guile/armv7
-bindir=/home/cogroid/local/guile/armv7/bin
-libdir=/home/cogroid/local/guile/armv7/lib
-includedir=/home/cogroid/local/guile/armv7/include
-datarootdir=/home/cogroid/local/guile/armv7/share
-datadir=/home/cogroid/local/guile/armv7/share
-pkgdatadir=/home/cogroid/local/guile/armv7/share/guile
-pkgincludedir=/home/cogroid/local/guile/armv7/include/guile
+prefix=/storage/emulated/0/guile
+exec_prefix=/storage/emulated/0/guile
+bindir=/storage/emulated/0/guile/bin
+libdir=/storage/emulated/0/guile/lib
+includedir=/storage/emulated/0/guile/include
+datarootdir=/storage/emulated/0/guile/share
+datadir=/storage/emulated/0/guile/share
+pkgdatadir=/storage/emulated/0/guile/share/guile
+pkgincludedir=/storage/emulated/0/guile/include/guile
 
-sitedir=/home/cogroid/local/guile/armv7/share/guile/site/2.2
-extensiondir=/home/cogroid/local/guile/armv7/lib/guile/2.2/extensions
-siteccachedir=/home/cogroid/local/guile/armv7/lib/guile/2.2/site-ccache
+sitedir=/storage/emulated/0/guile/share/guile/site/2.2
+extensiondir=/storage/emulated/0/guile/lib/guile/2.2/extensions
+siteccachedir=/storage/emulated/0/guile/lib/guile/2.2/site-ccache
 libguileinterface=4:0:3
 
 # Actual name of the 'guile' and 'guild' programs.  This is
@@ -24,7 +24,7 @@ Description: GNU's Ubiquitous Intelligent Language for Extension
 Version: UNKNOWN
 Libs: -L${libdir} -lguile-2.2 -lgc
 Libs.private:  /home/cogroid/local/libgmp/armv7/lib/libgmp.so -Wl,-rpath -Wl,/home/cogroid/local/libgmp/armv7/lib /home/cogroid/local/libtool/armv7/lib/libltdl.so -Wl,-rpath -Wl,/home/cogroid/local/libtool/armv7/lib -lffi	\
-  /home/cogroid/local/libunistring/armv7/lib/libunistring.so -Wl,-rpath -Wl,/home/cogroid/local/libunistring/armv7/lib -I/home/cogroid/local/guile/armv7/include -I/home/cogroid/local/libunistring/armv7/include -L/home/cogroid/local/libunistring/armv7/lib -B/home/cogroid/local/libunistring/armv7/lib -I/home/cogroid/local/libffi/armv7/lib/libffi-3.2.1/include -L/home/cogroid/local/libffi/armv7/lib -B/home/cogroid/local/libffi/armv7/lib -I/home/cogroid/local/libgmp/armv7/include -L/home/cogroid/local/libgmp/armv7/lib -B/home/cogroid/local/libgmp/armv7/lib -I/home/cogroid/local/libtool/armv7/include -L/home/cogroid/local/libtool/armv7/lib -B/home/cogroid/local/libtool/armv7/lib -v --target=arm-linux-androideabi -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb -fPIC -fno-integrated-as --sysroot /home/cogroid/local/android-ndk-r18b/sysroot -isystem /home/cogroid/local/android-ndk-r18b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=18 -fexceptions -frtti -ffunction-sections -funwind-tables -fstack-protector-strong -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++abi/include -I/home/cogroid/local/android-ndk-r18b/sources/android/support/include -DANDROID -Wa,--noexecstack -Wformat -Werror=format-security -DNDEBUG -O2 -L/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -B/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -L/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -B/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -L/home/cogroid/local/android-ndk-r18b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb -B/home/cogroid/local/android-ndk-r18b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb -L/home/cogroid/local/guile/armv7/lib -B/home/cogroid/local/guile/armv7/lib -lltdl -lfixing -lgmp -lffi -lunistring    -lm   		\
+  /home/cogroid/local/libunistring/armv7/lib/libunistring.so -Wl,-rpath -Wl,/home/cogroid/local/libunistring/armv7/lib -I/home/cogroid/local/libiconv/armv7/include -L/home/cogroid/local/libiconv/armv7/lib -B/home/cogroid/local/libiconv/armv7/lib -I/home/cogroid/local/guile/armv7/include -I/home/cogroid/local/libunistring/armv7/include -L/home/cogroid/local/libunistring/armv7/lib -B/home/cogroid/local/libunistring/armv7/lib -I/home/cogroid/local/libffi/armv7/lib/libffi-3.2.1/include -L/home/cogroid/local/libffi/armv7/lib -B/home/cogroid/local/libffi/armv7/lib -I/home/cogroid/local/libgmp/armv7/include -L/home/cogroid/local/libgmp/armv7/lib -B/home/cogroid/local/libgmp/armv7/lib -I/home/cogroid/local/libtool/armv7/include -L/home/cogroid/local/libtool/armv7/lib -B/home/cogroid/local/libtool/armv7/lib -v --target=arm-linux-androideabi -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb -fPIC -fno-integrated-as --sysroot /home/cogroid/local/android-ndk-r18b/sysroot -isystem /home/cogroid/local/android-ndk-r18b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=26 -fexceptions -frtti -ffunction-sections -funwind-tables -fstack-protector-strong -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++abi/include -I/home/cogroid/local/android-ndk-r18b/sources/android/support/include -DANDROID -Wa,--noexecstack -Wformat -Werror=format-security -DNDEBUG -O2 -L/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -B/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -L/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -B/home/cogroid/local/android-ndk-r18b/platforms/android-24/arch-arm/usr/lib -L/home/cogroid/local/android-ndk-r18b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb -B/home/cogroid/local/android-ndk-r18b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb -L/home/cogroid/local/guile/armv7/lib -B/home/cogroid/local/guile/armv7/lib -lltdl -lfixing -lgmp -lffi -lunistring -liconv    -lm   		\
      		\
   
-Cflags: -I${pkgincludedir}/2.2 -I/home/cogroid/local/guile/armv7/include -I/home/cogroid/local/libunistring/armv7/include -I/home/cogroid/local/libffi/armv7/lib/libffi-3.2.1/include -I/home/cogroid/local/libgmp/armv7/include -I/home/cogroid/local/libtool/armv7/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++abi/include -I/home/cogroid/local/android-ndk-r18b/sources/android/support/include  
+Cflags: -I${pkgincludedir}/2.2 -I/home/cogroid/local/libiconv/armv7/include -I/home/cogroid/local/guile/armv7/include -I/home/cogroid/local/libunistring/armv7/include -I/home/cogroid/local/libffi/armv7/lib/libffi-3.2.1/include -I/home/cogroid/local/libgmp/armv7/include -I/home/cogroid/local/libtool/armv7/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++/include -I/home/cogroid/local/android-ndk-r18b/sources/cxx-stl/llvm-libc++abi/include -I/home/cogroid/local/android-ndk-r18b/sources/android/support/include  
