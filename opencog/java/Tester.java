@@ -138,6 +138,8 @@ public class Tester {
 		}
 		testNode();
 		testConceptNode();
+		testLink();
+		testOrderedLink();
 	} catch (Throwable e) {
 		writeLog(Loader.me().stackTrace(e));
 	}
@@ -170,6 +172,66 @@ public class Tester {
 		writeLog(log);
 		AtomSpace as = new AtomSpace();
 		Node pv = new Node(as, Types.CONCEPT_NODE, "dream");
+		log = "isAtom: " + pv.isAtom();
+		writeLog(log);
+		log = "isNode: " + pv.isNode();
+		writeLog(log);
+		log = "isLink: " + pv.isLink();
+		writeLog(log);
+		log = "getName: " + pv.getName();
+		writeLog(log);
+		log = "getArity: " + pv.getArity();
+		writeLog(log);
+		log = "toString: " + pv.toString();
+		writeLog(log);
+		log = "toShortString: " + pv.toShortString();
+		writeLog(log);
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
+    public void testLink() {
+	try {
+		String log = "\n===== Link =====\n";
+		writeLog(log);
+		AtomSpace as = new AtomSpace();
+		ConceptNode na = new ConceptNode(as, "dream");
+		ConceptNode nb = new ConceptNode(as, "american");
+		Link pv = new Link(as, Types.ORDERED_LINK, na, nb);
+		log = "isAtom: " + pv.isAtom();
+		writeLog(log);
+		log = "isNode: " + pv.isNode();
+		writeLog(log);
+		log = "isLink: " + pv.isLink();
+		writeLog(log);
+		log = "getName: " + pv.getName();
+		writeLog(log);
+		log = "getArity: " + pv.getArity();
+		writeLog(log);
+		log = "toString: " + pv.toString();
+		writeLog(log);
+		log = "toShortString: " + pv.toShortString();
+		writeLog(log);
+		pv.dispose();
+		log = "disposed: " + pv.disposed();
+		writeLog(log);
+	} catch (Throwable e) {
+		writeLog(Loader.me().stackTrace(e));
+	}
+    }
+
+    public void testOrderedLink() {
+	try {
+		String log = "\n===== Ordered Link =====\n";
+		writeLog(log);
+		AtomSpace as = new AtomSpace();
+		ConceptNode na = new ConceptNode(as, "dream");
+		ConceptNode nb = new ConceptNode(as, "american");
+		OrderedLink pv = new OrderedLink(as, na, nb);
 		log = "isAtom: " + pv.isAtom();
 		writeLog(log);
 		log = "isNode: " + pv.isNode();

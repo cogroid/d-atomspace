@@ -40,7 +40,7 @@ public:
 	}
 
 	static std::shared_ptr<T> object(long jni_ptr) {
-		return get(jni_ptr)->get();
+		return get(jni_ptr)->object();
 	}
 
 	static long dispose(long jni_ptr) {

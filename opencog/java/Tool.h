@@ -13,6 +13,11 @@ public:
 		if (type == 2) return opencog::CONCEPT_NODE;
 		return opencog::CONCEPT_NODE;
 	}
+
+	static opencog::Type link_type(int type) {
+		if (type == 3) return opencog::ORDERED_LINK;
+		return opencog::ORDERED_LINK;
+	}
 };
 
 }

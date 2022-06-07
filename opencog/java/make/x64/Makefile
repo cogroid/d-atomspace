@@ -10,7 +10,7 @@ JAVA_ROOT_BIN_DIR=../../../../build
 
 all: clean build
 
-build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class GenericEval.class SchemeEval.class Node.class ConceptNode.class Tester.class datomspace.jar
+build: init libdatomspace.so Value.class PseudoValue.class Atom.class__AtomSpace.class GenericEval.class SchemeEval.class Node.class ConceptNode.class Link.class OrderedLink.class Tester.class datomspace.jar
 
 init:
 	mkdir -p ${JAVA_BIN_DIR}
@@ -37,7 +37,10 @@ com_cogroid_atomspace_SchemeEval.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Scheme
 com_cogroid_atomspace_Node.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Node.cc
 	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR} -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_Node.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_Node.o
 
-libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValue.o com_cogroid_atomspace_AtomSpace.o com_cogroid_atomspace_Atom.o com_cogroid_atomspace_SchemeEval.o com_cogroid_atomspace_Node.o
+com_cogroid_atomspace_Link.o: ${JAVA_SRC_DIR}/com_cogroid_atomspace_Link.cc
+	${GPP} -c -fPIC -std=gnu++17 -I${JAVA_ROOT_SRC_DIR} -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux ${JAVA_SRC_DIR}/com_cogroid_atomspace_Link.cc -o ${JAVA_BIN_DIR}/com_cogroid_atomspace_Link.o
+
+libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValue.o com_cogroid_atomspace_AtomSpace.o com_cogroid_atomspace_Atom.o com_cogroid_atomspace_SchemeEval.o com_cogroid_atomspace_Node.o com_cogroid_atomspace_Link.o
 	${GPP} -shared -fPIC -lpthread -Wall -fstack-protector -Wno-variadic-macros -fopenmp -std=gnu++17 -O3 -g -Wl,--no-as-needed \
 	-o ${JAVA_BIN_DIR}/libdatomspace.so \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Value.o \
@@ -46,6 +49,7 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_SchemeEval.o \
 	${JAVA_BIN_DIR}/com_cogroid_atomspace_Node.o \
+	${JAVA_BIN_DIR}/com_cogroid_atomspace_Link.o \
 \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/atom_types/CMakeFiles/atom_types.dir/atom_types_init.cc.o \
 	${JAVA_ROOT_BIN_DIR}/opencog/atoms/atom_types/CMakeFiles/atom_types.dir/NameServer.cc.o \
@@ -243,6 +247,7 @@ libdatomspace.so: com_cogroid_atomspace_Value.o com_cogroid_atomspace_PseudoValu
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_AtomSpace.o
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_SchemeEval.o
 	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Node.o
+	rm -f ${JAVA_BIN_DIR}/com_cogroid_atomspace_Link.o
 
 Value.class: ${JAVA_SRC_DIR}/Value.java
 	${JAVAC} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Value.java ${JAVA_SRC_DIR}/Disposable.java
@@ -267,6 +272,12 @@ Node.class: ${JAVA_SRC_DIR}/Node.java
 
 ConceptNode.class: ${JAVA_SRC_DIR}/ConceptNode.java
 	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/ConceptNode.java
+
+Link.class: ${JAVA_SRC_DIR}/Link.java
+	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/Link.java
+
+OrderedLink.class: ${JAVA_SRC_DIR}/OrderedLink.java
+	${JAVAC} -Xlint:unchecked -cp ${JAVA_BIN_DIR} -d ${JAVA_BIN_DIR} ${JAVA_SRC_DIR}/OrderedLink.java
 
 datomspace.jar:
 	${JAR} cvf ${JAVA_BIN_DIR}/../datomspace.jar -C ${JAVA_BIN_DIR} .

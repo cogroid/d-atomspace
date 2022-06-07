@@ -1,5 +1,5 @@
 /*
- * opencog/java/Types.java
+ * opencog/java/OrderedLink.java
  *
  * Copyright (C) 2022 Dinh Thoai Tran
  * All Rights Reserved
@@ -24,42 +24,24 @@
 
 package com.cogroid.atomspace;
 
-public class Types {
-	public static int ATOM_SPACE = 1;
-	public static int CONCEPT_NODE = 2;
-	public static int ORDERED_LINK = 3;
-
-	public static boolean hasNodeType(int type) {
-		int[] types = {CONCEPT_NODE};
-		for (int i = 0; i < types.length; i++) {
-			if (types[i] == type) {
-				return true;
-			}
-		}
-		return false;
+public class OrderedLink extends Link {
+	public OrderedLink(AtomSpace atomspace, java.util.List<Atom> outgoing) {
+		super(atomspace, Types.ORDERED_LINK, outgoing);
 	}
 
-	public static boolean hasLinkType(int type) {
-		int[] types = {ORDERED_LINK};
-		for (int i = 0; i < types.length; i++) {
-			if (types[i] == type) {
-				return true;
-			}
-		}
-		return false;
+	public OrderedLink(AtomSpace atomspace, Atom a) {
+		super(atomspace, Types.ORDERED_LINK, a);
 	}
 
-	public static int refineNodeType(int type) {
-		if (hasNodeType(type)) {
-			return type;
-		}
-		return CONCEPT_NODE;
+	public OrderedLink(AtomSpace atomspace, Atom a, Atom b) {
+		super(atomspace, Types.ORDERED_LINK, a, b);
 	}
 
-	public static int refineLinkType(int type) {
-		if (hasLinkType(type)) {
-			return type;
-		}
-		return ORDERED_LINK;
+	public OrderedLink(AtomSpace atomspace, Atom a, Atom b, Atom c) {
+		super(atomspace, Types.ORDERED_LINK, a, b, c);
+	}
+
+	public OrderedLink(AtomSpace atomspace, Atom a, Atom b, Atom c, Atom d) {
+		super(atomspace, Types.ORDERED_LINK, a, b, c, d);
 	}
 }
